@@ -53,7 +53,7 @@ The output can be configured by passing a second parameter to the `plot (series,
 var config = {
 
     offset:  3,          // axis offset (min 2)
-    padding: '       ',  // padding string
+    padding: '       ',  // padding string (format option overrides this)
     height:  10,         // any height you want
 
     // the label format function
