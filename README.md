@@ -49,7 +49,7 @@ console.log (asciichart.plot (s0))
 <img width="788" alt="Console ASCII Line charts in pure Javascript (for NodeJS and browsers)" src="https://cloud.githubusercontent.com/assets/1294454/22818807/313cd636-ef80-11e6-9d1a-7a90abdb38c8.png">
 
 The output can be configured by passing a second parameter to the `plot (series, config)` function. The following options are supported:
-```
+```javascript
 var config = {
 
     offset:  3,          // axis offset (min 2)
