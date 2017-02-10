@@ -63,7 +63,6 @@ var config = {
 
 ## Rescale To Desired Height
 
-To rescale 
 ```javascript
 var s = []
 for (var i = 0; i < 120; i++)
