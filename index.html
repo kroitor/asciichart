@@ -14,7 +14,7 @@
             for (var i = 0; i < s1.length; i++)
                 s1[i] = 15 * Math.cos (i * ((Math.PI * 8) / s1.length))
 
-            console.log (asciichart.plot (s1, { height: 12 }))
+            console.log (asciichart.plot (s1, { height: 12 }) + '\n\n')
         
             //-----------------------------------------------------------------------------
 
@@ -23,7 +23,7 @@
             for (i = 1; i < s2.length; i++)
                 s2[i] = s2[i - 1] + Math.round (Math.random () * (Math.random () > 0.5 ? 2 : -2))
 
-            console.log (asciichart.plot (s2))
+            console.log (asciichart.plot (s2) + '\n\n')
 
             //-----------------------------------------------------------------------------
 
