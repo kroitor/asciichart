@@ -2,8 +2,6 @@
 
 (function (exports) {
 
-    // your code goes here
-
     exports.plot = function (series, cfg) {
 
         var min = series[0]

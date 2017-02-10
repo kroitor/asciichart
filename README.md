@@ -78,6 +78,9 @@ console.log (asciichart.plot (s, { height: 6 }))     // this rescales the graph 
 
 <img width="791" alt="Console ASCII Line charts in pure Javascript (for NodeJS and browsers)" src="https://cloud.githubusercontent.com/assets/1294454/22818711/9f166128-ef7f-11e6-9748-b23b151974ed.png">
 
+<img width="787" alt="Console ASCII Line charts in pure Javascript (for NodeJS and browsers)" src="https://cloud.githubusercontent.com/assets/1294454/22825525/dd295294-ef9e-11e6-93d1-0beb80b93133.png">
+
+
 ### Auto-range
 
 ```javascript
