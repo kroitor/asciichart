@@ -34,9 +34,8 @@
         }
 
         for (var y = min2; y <= max2; ++y) { // axis + labels
-            var label = max - (y - min2) * range / rows
-            var labelString = format (label)
-            result[y - min2][Math.max (offset - labelString.length, 0)] = labelString
+            var label = format (max - (y - min2) * range / rows)
+            result[y - min2][Math.max (offset - labelString.length, 0)] = label
             result[y - min2][offset - 1] = (y == 0) ? '┼' : '┤' 
         }
 
