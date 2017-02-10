@@ -1,7 +1,7 @@
 {
   "name": "asciichart",
   "version": "0.0.1",
-  "description": "xbtrd",
+  "description": "Console ASCII line charts for NodeJS and browsers in 50 lines of pure JS with no dependencies",
   "main": "asciichart.js",
   "repository": {
     "type": "git",
