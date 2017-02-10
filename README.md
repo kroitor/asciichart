@@ -66,8 +66,8 @@ var config = {
 ```javascript
 var s = []
 for (var i = 0; i < 120; i++)
-    s[i] = 15 * Math.cos (i * ((Math.PI * 8) / 120))    // this generates values from -15 to 15 (30 lines)
-console.log (asciichart.plot (s, { height: 6 }))        // this rescales the graph to 6 lines 
+    s[i] = 15 * Math.cos (i * ((Math.PI * 8) / 120)) // values ±15
+console.log (asciichart.plot (s, { height: 6 }))     // this rescales the graph to ±3 lines
 ```
 
 <img width="791" alt="Console ASCII Line charts in pure Javascript (for NodeJS and browsers)" src="https://cloud.githubusercontent.com/assets/1294454/22818711/9f166128-ef7f-11e6-9748-b23b151974ed.png">
