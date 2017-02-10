@@ -1,7 +1,7 @@
 {
   "name": "asciichart",
   "version": "0.0.3",
-  "description": "Console ASCII line charts for NodeJS and browsers in 50 lines of pure JS with no dependencies",
+  "description": "Nice-looking console ASCII line charts for NodeJS and browsers in 50 lines of pure JS with no dependencies",
   "main": "asciichart.js",
   "repository": {
     "type": "git",
