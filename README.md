@@ -52,8 +52,8 @@ The output can be configured by passing a second parameter to the `plot (series,
 ```javascript
 var config = {
 
-    offset:  3,          // axis offset (min 2)
-    padding: '       ',  // padding string (format option overrides this)
+    offset:  3,          // axis offset from the left (min 2)
+    padding: '       ',  // padding string for label formatting (can be overrided)
     height:  10,         // any height you want
 
     // the label format function
