@@ -1,5 +1,5 @@
 # asciichart
-Console ASCII line charts in 50 lines of pure Javascript (for NodeJS and browsers) with no dependencies.
+Console ASCII line charts in 50 lines of pure Javascript (for NodeJS and browsers) with no dependencies. This code is absolutely free for any usage, you just do whatever the fuck you want under WTFPL.
 
 <img width="789" alt="Console ASCII Line charts in pure Javascript (for NodeJS and browsers)" src="https://cloud.githubusercontent.com/assets/1294454/22818709/9f14e1c2-ef7f-11e6-978f-34b5b595fb63.png">
 
