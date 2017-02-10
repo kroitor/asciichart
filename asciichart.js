@@ -38,9 +38,8 @@
         for (var y = min2; y <= max2; ++y) { // axis + labels
             var label = max - (y - min2) * range / rows
             var labelString = format (label)
-            console.log (labelString)
-            result[rows - y + min2][Math.max (offset - labelString.length, 0)] = labelString
-            result[rows - y + min2][offset - 1] = (y == 0) ? '┼' : '┤' 
+            result[y - min2][Math.max (offset - labelString.length, 0)] = labelString
+            result[y - min2][offset - 1] = (y == 0) ? '┼' : '┤' 
         }
 
         var y0 = Math.round (series[0] * ratio) - min2
