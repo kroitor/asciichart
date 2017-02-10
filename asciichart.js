@@ -25,7 +25,7 @@
         var rows    = Math.abs (max2 - min2)
         var width   = series.length + offset
         var format  = (typeof cfg.format != 'undefined') ? cfg.format : function (n) {
-            return (padding + String (n.toFixed (2))).slice (-padding.length)
+            return (padding + n.toFixed (2)).slice (-padding.length)
         }
 
         var result = new Array (rows + 1) // empty space
