@@ -56,7 +56,7 @@ var config = {
     padding: '       ',  // padding string for label formatting (can be overrided)
     height:  10,         // any height you want
 
-    // the label format function
+    // the label format function applies default padding
     format:  function (n) { return (padding + String (n.toFixed (2))).slice (-padding.length) }
 }
 ```
