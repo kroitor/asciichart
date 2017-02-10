@@ -3,7 +3,13 @@ Console ASCII line charts in 50 lines of pure Javascript (for NodeJS and browser
 
 <img width="789" alt="Console ASCII Line charts in pure Javascript (for NodeJS and browsers)" src="https://cloud.githubusercontent.com/assets/1294454/22818709/9f14e1c2-ef7f-11e6-978f-34b5b595fb63.png">
 
-## NodeJS
+## Usage
+
+### NodeJS
+
+```sh
+npm install asciichart
+```
 
 ```javascript
 var asciichart = require('./asciichart')
@@ -13,7 +19,7 @@ for (var i = 0; i < s0.length; i++)
 console.log (asciichart.plot (s0))
 ```
 
-## Browsers
+### Browsers
 
 ```html
 <!DOCTYPE html>
@@ -35,7 +41,7 @@ console.log (asciichart.plot (s0))
 </html>
 ```
 
-## Basic Usage
+### Options
 
 The width of the chart will alwaays equal the length of data series. The height and range are determined automatically.
 
@@ -61,7 +67,7 @@ var config = {
 }
 ```
 
-## Rescale To Desired Height
+### Scale To Desired Height
 
 ```javascript
 var s = []
