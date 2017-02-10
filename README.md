@@ -66,7 +66,7 @@ var config = {
 ```javascript
 var s = []
 for (var i = 0; i < 120; i++)
-    s[i] = 15 * Math.cos (i * ((Math.PI * 8) / 120)) // values ±15
+    s[i] = 15 * Math.cos (i * ((Math.PI * 8) / 120)) // values range from -15 to +15
 console.log (asciichart.plot (s, { height: 6 }))     // this rescales the graph to ±3 lines
 ```
 
