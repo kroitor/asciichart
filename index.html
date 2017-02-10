@@ -9,16 +9,16 @@
                             
             //-----------------------------------------------------------------------------
 
-            var s1 = []
+            var s1 = new Array (120)
 
-            for (var i = 0; i < 120; i++)
-                s1[i] = 15 * Math.cos (i * ((Math.PI * 8) / 120))
+            for (var i = 0; i < s1.length; i++)
+                s1[i] = 15 * Math.cos (i * ((Math.PI * 8) / s.length))
 
             console.log (asciichart.plot (s1, { height: 12 }))
         
             //-----------------------------------------------------------------------------
 
-            var s2 = []
+            var s2 = new Array (80)
             s2[0] = Math.round (Math.random () * 10)
             for (i = 1; i < s2.length; i++)
                 s2[i] = s2[i - 1] + Math.round (Math.random () * (Math.random () > 0.5 ? 1 : -1))
