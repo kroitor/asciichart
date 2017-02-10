@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 (function (exports) {
 
@@ -63,4 +63,4 @@
         return result.map (function (x) { return x.join ('') }).join ('\n')
     }  
 
-}) (typeof exports === 'undefined' ? this['asciichart'] = {} : exports)
+}) (typeof exports === 'undefined' ? this['asciichart'] = {} : exports);
