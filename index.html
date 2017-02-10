@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta charset="UTF-8">
+        <title>test</title>
+        <script src="https://rawgit.com/kroitor/ascii-line-chart/master/asciichart.js"></script>
+        <script type="text/javascript">
+                            
+            //-----------------------------------------------------------------------------
+
+            var s = []
+
+            for (var i = 0; i < 120; i++) {
+                s[i] = 15 * Math.cos (i * ((Math.PI * 8) / 120))
+            }
+
+//             s[0] = Math.round (Math.random () * 10)
+//             for (i = 1; i < s.length; i++) {
+//                 let a = Math.random () > 0.5 ? 1 : -1
+//                 s[i] = s[i - 1] + Math.round (Math.random () * a) 
+//             }
+
+            console.log (asciichart.plot (s, { height: 12 }))
+        
+            //-----------------------------------------------------------------------------
+
+        </script>
+    </head>
+    <body>
+    </body>
+</html>
