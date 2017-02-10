@@ -1,14 +1,13 @@
 {
   "name": "asciichart",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Console ASCII line charts for NodeJS and browsers in 50 lines of pure JS with no dependencies",
   "main": "asciichart.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/kroitor/asciichart.git"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "author": "Igor Kroitor <igor.kroitor@gmail.com> (http://github.com/kroitor)",
   "license": "WTFPL"
 }
