@@ -3,9 +3,7 @@ Console ASCII line charts in 50 lines of pure Javascript (for NodeJS and browser
 
 <img width="789" alt="Console ASCII Line charts in pure Javascript (for NodeJS and browsers)" src="https://cloud.githubusercontent.com/assets/1294454/22818709/9f14e1c2-ef7f-11e6-978f-34b5b595fb63.png">
 
-## Usage
-
-### NodeJS
+## NodeJS
 
 ```javascript
 var asciichart = require('./asciichart')
@@ -15,7 +13,7 @@ for (var i = 0; i < s0.length; i++)
 console.log (asciichart.plot (s0))
 ```
 
-### Browsers
+## Browsers
 
 ```html
 <!DOCTYPE html>
@@ -37,9 +35,9 @@ console.log (asciichart.plot (s0))
 </html>
 ```
 
-### Basic
+## Basic Usage
 
-Determine height and range automatically, width always equals the length of data series.
+The width of the chart will alwaays equal the length of data series. The height and range are determined automatically.
 
 ```javascript
 var s0 = new Array (120)
@@ -50,8 +48,22 @@ console.log (asciichart.plot (s0))
 
 <img width="788" alt="Console ASCII Line charts in pure Javascript (for NodeJS and browsers)" src="https://cloud.githubusercontent.com/assets/1294454/22818807/313cd636-ef80-11e6-9d1a-7a90abdb38c8.png">
 
-### Rescale to desired height
+The output can be configured by passing a second parameter to the `plot (series, config)` function. The following options are supported:
+```
+var config = {
 
+    offset:  3,          // axis offset (min 2)
+    padding: '       ',  // padding string
+    height:  10,         // any height you want
+
+    // the label format function
+    format:  function (n) { return (padding + String (n.toFixed (2))).slice (-padding.length) }
+}
+```
+
+## Rescale To Desired Height
+
+To rescale 
 ```javascript
 var s = []
 for (var i = 0; i < 120; i++)
