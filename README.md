@@ -26,16 +26,10 @@ console.log (asciichart.plot (s0))
         <title>asciichart</title>
         <script src="asciichart.js"></script>
         <script type="text/javascript">
-
-            //-----------------------------------------------------------------------------
-
             var s0 = new Array (120)
             for (var i = 0; i < s0.length; i++)
                 s0[i] = 15 * Math.sin (i * ((Math.PI * 4) / s0.length))
             console.log (asciichart.plot (s0))
-                            
-            //-----------------------------------------------------------------------------
-            
         </script>
     </head>
     <body>
