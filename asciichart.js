@@ -22,8 +22,8 @@
         var max2    = Math.round (max * ratio)
         var rows    = Math.abs (max2 - min2)
         var width   = series.length + offset
-        var format  = (typeof cfg.format !== 'undefined') ? cfg.format : function (n) {
-            return (padding + n.toFixed (2)).slice (-padding.length)
+        var format  = (typeof cfg.format !== 'undefined') ? cfg.format : function (x, i) {
+            return (padding + x.toFixed (2)).slice (-padding.length)
         }
 
         var result = new Array (rows + 1) // empty space
@@ -34,8 +34,8 @@
         }
 
         for (var y = min2; y <= max2; ++y) { // axis + labels
-            var label = format (max - (y - min2) * range / rows)
-            result[y - min2][Math.max (offset - labelString.length, 0)] = label
+            var label = format (max - (y - min2) * range / rows, y - min2)
+            result[y - min2][Math.max (offset - label.length, 0)] = label
             result[y - min2][offset - 1] = (y == 0) ? '┼' : '┤' 
         }
 

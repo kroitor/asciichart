@@ -43,7 +43,7 @@ console.log (asciichart.plot (s0))
 
 ### Options
 
-The width of the chart will alwaays equal the length of data series. The height and range are determined automatically.
+The width of the chart will alwaas equal the length of data series. The height and range are determined automatically.
 
 ```javascript
 var s0 = new Array (120)
@@ -63,7 +63,7 @@ var config = {
     height:  10,         // any height you want
 
     // the label format function applies default padding
-    format:  function (n) { return (padding + n.toFixed (2)).slice (-padding.length) }
+    format:  function (x, i) { return (padding + x.toFixed (2)).slice (-padding.length) }
 }
 ```
 
