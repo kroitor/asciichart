@@ -43,7 +43,7 @@ console.log (asciichart.plot (s0))
 
 ### Options
 
-The width of the chart will alwaas equal the length of data series. The height and range are determined automatically.
+The width of the chart will always equal the length of data series. The height and range are determined automatically.
 
 ```javascript
 var s0 = new Array (120)
