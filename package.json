@@ -1,6 +1,6 @@
 {
   "name": "asciichart",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Nice-looking lightweight console ASCII line charts ╭┈╯ with no dependencies",
   "main": "asciichart.js",
   "repository": {
