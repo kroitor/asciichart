@@ -62,4 +62,4 @@
         return result.map (function (x) { return x.join ('') }).join ('\n')
     }  
 
-}) (typeof exports === 'undefined' ? this['asciichart'] = {} : exports);
+}) (typeof exports === 'undefined' ? /* istanbul ignore next */ this['asciichart'] = {} : exports);
