@@ -1,5 +1,5 @@
 # asciichart
-kroitor/ccxt.svg?branch=master
+
 [![Travis](https://travis-ci.org/kroitor/asciichart.svg?branch=master)](https://travis-ci.org/kroitor/asciichart) [![npm](https://img.shields.io/npm/v/asciichart.svg)](https://npmjs.com/package/asciichart)
 
 Console ASCII line charts in pure Javascript (for NodeJS and browsers) with no dependencies. This code is absolutely free for any usage, you just do whatever the fuck you want under WTFPL.
