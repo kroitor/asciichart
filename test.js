@@ -16,9 +16,12 @@ console.log (line)
 console.log ("configuring / scale to desired height\n")
 
 var config = {
-    offset:  3,          // axis offset from the left (min 2)
     padding: '       ',  // padding string for label formatting (can be overrided)
-    height:  10,         // any height you want
+    offset:  3,  // axis offset from the left (min 2)
+    height:  10, // any height you want
+    format: function (x, i) {
+        return (padding + x.toFixed (2)).slice (-padding.length)
+    }
 }
 
 var s = []
