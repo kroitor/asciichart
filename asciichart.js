@@ -2,7 +2,7 @@
 
 (function (exports) {
 
-    exports.plot = function (series, cfg) {
+    exports.plot = function (series, cfg = undefined) {
 
         let min = series[0]
         let max = series[0]
@@ -13,7 +13,7 @@
         }
 
         let range   = Math.abs (max - min)
-        let cfg     = (typeof cfg !== 'undefined') ? cfg : {}
+        cfg         = (typeof cfg !== 'undefined') ? cfg : {}
         let offset  = (typeof cfg.offset  !== 'undefined') ? cfg.offset  : 3
         let padding = (typeof cfg.padding !== 'undefined') ? cfg.padding : '       '
         let height  = (typeof cfg.height  !== 'undefined') ? cfg.height  : range
@@ -22,7 +22,7 @@
         let max2    = Math.round (max * ratio)
         let rows    = Math.abs (max2 - min2)
         let width   = series.length + offset
-        let format  = (typeof cfg.format !== 'undefined') ? cfg.format : function (x, i) {
+        let format  = (typeof cfg.format !== 'undefined') ? cfg.format : function (x) {
             return (padding + x.toFixed (2)).slice (-padding.length)
         }
 
@@ -53,8 +53,9 @@
                 result[rows - y0][x + offset] = (y0 > y1) ? '╮' : '╯'
                 let from = Math.min (y0, y1)
                 let to = Math.max (y0, y1)
-                for (let y = from + 1; y < to; y++)
+                for (let y = from + 1; y < to; y++) {
                     result[rows - y][x + offset] = '│'
+                }
             }
         }
 
