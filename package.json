@@ -8,15 +8,28 @@
     "url": "https://github.com/kroitor/asciichart.git"
   },
   "dependencies": {},
+  "devDependencies": {
+    "coveralls": "^2.13.1",
+    "esdoc": "^0.5.2",
+    "esdoc-node": "^1.0.2",
+    "eslint": "^4.2.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.4.2",
+    "nyc": "^11.0.3"
+  },
   "author": {
     "name": "Igor Kroitor",
     "email": "igor.kroitor@gmail.com",
     "url": "https://github.com/kroitor"
   },
-  "license": "MIT",
   "scripts": {
-    "test": "node test"
+    "test": "nyc --reporter=html --reporter=text mocha --reporter spec",
+    "lint": "eslint asciichart.js",
+    "lint-test": "eslint test.js",
+    "autotest": "mocha --reporter spec --watch",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/kroitor/asciichart/issues"
   },
