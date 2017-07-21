@@ -20,7 +20,7 @@ var config = {
     offset:  3,  // axis offset from the left (min 2)
     height:  10, // any height you want
     format: function (x, i) {
-        return (this.padding + x.toFixed (2)).slice (-this.padding.length)
+        return ('       ' + x.toFixed (2)).slice (-'       '.length)
     }
 }
 
