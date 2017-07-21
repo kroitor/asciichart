@@ -2,7 +2,7 @@
 
 var asciichart = require ('./asciichart')
 
-var width = 120
+var width = 60
 var line = "\n" + '='.repeat (width + 9) + "\n"
 
 console.log ("\nbasic\n")
