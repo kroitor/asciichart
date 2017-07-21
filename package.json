@@ -7,14 +7,15 @@
     "type": "git",
     "url": "https://github.com/kroitor/asciichart.git"
   },
+  "dependencies": {},
   "author": {
     "name": "Igor Kroitor",
     "email": "igor.kroitor@gmail.com",
     "url": "https://github.com/kroitor"
   },
-  "license": "MIT"
+  "license": "MIT",
   "scripts": {
-    "test": "node test",
+    "test": "node test"
   },
   "bugs": {
     "url": "https://github.com/kroitor/asciichart/issues"
@@ -42,6 +43,6 @@
     "command line",
     "bash",
     "shell",
-    "light",
+    "light"
   ]
 }
