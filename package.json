@@ -7,7 +7,41 @@
     "type": "git",
     "url": "https://github.com/kroitor/asciichart.git"
   },
-  "dependencies": {},
-  "author": "Igor Kroitor <igor.kroitor@gmail.com> (http://github.com/kroitor)",
-  "license": "Unlicense"
+  "author": {
+    "name": "Igor Kroitor",
+    "email": "igor.kroitor@gmail.com",
+    "url": "https://github.com/kroitor"
+  },
+  "license": "MIT"
+  "scripts": {
+    "test": "node test",
+  },
+  "bugs": {
+    "url": "https://github.com/kroitor/asciichart/issues"
+  },
+  "homepage": "https://github.com/kroitor/asciichart",
+  "keywords": [
+    "asciichart",
+    "ascii",
+    "chart",
+    "charting",
+    "charts",
+    "console",
+    "terminal",
+    "draw",
+    "box-drawing",
+    "box drawing",
+    "drawing",
+    "stats",
+    "line",
+    "linear",
+    "plot",
+    "graph",
+    "ascii graphics",
+    "graphics",
+    "command line",
+    "bash",
+    "shell",
+    "light",
+  ]
 }
