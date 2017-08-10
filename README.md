@@ -98,7 +98,7 @@ console.log (asciichart.plot (s2))
 
 ### See Also
 
-A util that draws Bitcoin, Ether, Litecoin and many altcoin charts in command-line console: [bitcoin-chart-cli](https://github.com/madnight/bitcoin-chart-cli) by [madnight](https://github.com/madnight).
+A util by [madnight](https://github.com/madnight) for drawing Bitcoin/Ether/altcoin charts in command-line console: [bitcoin-chart-cli](https://github.com/madnight/bitcoin-chart-cli).
   
 ![bitcoin-chart-cli](https://camo.githubusercontent.com/494806efd925c4cd56d8370c1d4e8b751812030a/68747470733a2f2f692e696d6775722e636f6d2f635474467879362e706e67)
 
