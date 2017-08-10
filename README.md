@@ -96,6 +96,13 @@ console.log (asciichart.plot (s2))
 
 <img width="788" alt="Console ASCII Line charts in pure Javascript (for NodeJS and browsers)" src="https://cloud.githubusercontent.com/assets/1294454/22818710/9f157a74-ef7f-11e6-893a-f7494b5abef1.png">
 
+### See Also
+
+A command-line console util that draws Bitcoin, Ether, Litecoin and many altcoin charts right in the terminal: [bitcoin-chart-cli](https://github.com/madnight/bitcoin-chart-cli) by [madnight](https://github.com/madnight).
+  
+![bitcoin-chart-cli](https://camo.githubusercontent.com/494806efd925c4cd56d8370c1d4e8b751812030a/68747470733a2f2f692e696d6775722e636f6d2f635474467879362e706e67)
+
+Special thx to [MitchTalmadge](https://github.com/MitchTalmadge) for porting this package to Java! If you're a Java-guy, check out the port here: [ASCIIGraph](https://github.com/MitchTalmadge/ASCIIGraph).
 
 
 
