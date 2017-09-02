@@ -1,10 +1,18 @@
 # -*- coding: utf-8 -*-
 
+# -----------------------------------------------------------------------------
+
 from math import cos
 from math import sin
 from math import pi
 from math import floor
 from math import ceil
+
+# -----------------------------------------------------------------------------
+
+__all__ = ['plot']
+
+# -----------------------------------------------------------------------------
 
 def plot(series, cfg={}):
 
@@ -16,7 +24,6 @@ def plot(series, cfg={}):
     padding = cfg['padding'] if 'padding' in cfg else '       '
     height = cfg['height'] if 'height' in cfg else interval
     ratio = height / interval
-    # print(minimum,ratio,type(minimum))
     min2 = floor(float(minimum) * ratio)
     max2 = ceil(float(maximum) * ratio)
 
@@ -25,13 +32,13 @@ def plot(series, cfg={}):
 
     rows = abs(intmax2 - intmin2)
     width = len(series) + offset
-    # format = cfg['format'] if 'format' in cfg else lambda x: (padding + '{:.2f}'.format(x))[:-len(padding)]
+    placeholder = cfg['format'] if 'format' in cfg else '{:8.2f} '
 
     result = [[' '] * width for i in range(rows + 1)]
 
     # axis and labels
     for y in range(intmin2, intmax2 + 1):
-        label = '{:8.2f} '.format(float(maximum) - ((y - intmin2) * interval / rows))
+        label = placeholder.format(float(maximum) - ((y - intmin2) * interval / rows))
         result[y - intmin2][max(offset - len(label), 0)] = label
         result[y - intmin2][offset - 1] = '┼' if y == 0 else '┤'
 
@@ -52,8 +59,3 @@ def plot(series, cfg={}):
                 result[rows - y][x + offset] = '│'
 
     return '\n'.join([''.join(row) for row in result])
-
-if __name__ == '__main__':
-    width = 180
-    series = [15 * cos(i * ((pi * 4) / width)) for i in range(width)]
-    print(plot(series))

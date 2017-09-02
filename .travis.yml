@@ -1,8 +1,20 @@
 language: node_js
 node_js:
-  - "node"
+- node
+python:
+  - "2.7"
+  - "3.5"
+  - "3.6"
+cache: pip
+before_install:
+- set -e
+- python3 --version
+- pip3 --version
+- pip3 install --upgrade tox
+- pip install wheel
 script:
   - npm run lint
   - npm run lint-test
   - npm test
+  - tox -e qa
 after_success: npm run coverage
