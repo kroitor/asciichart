@@ -19,7 +19,7 @@ with open(path.join(here, 'package.json'), encoding='utf-8') as f:
 
 setup(
 
-    name=package['name'],
+    name=package['name'] + 'py',
     version=package['version'],
 
     description=package['description'],
