@@ -1,17 +1,22 @@
-language: node_js
-node_js:
-- node
+language: python
 python:
-  - "2.7"
-  - "3.5"
   - "3.6"
-cache: pip
+cache:
+  directories:
+    - $HOME/.cache/pip
+    - $HOME/.npm
+    - node_modules
 before_install:
 - set -e
+- . $HOME/.nvm/nvm.sh
+- nvm install stable
+- nvm use stable
+- npm install
+- sudo apt-get install python3-pip
 - python3 --version
 - pip3 --version
-- pip3 install --upgrade tox
-- pip install wheel
+- sudo -H pip3 install --upgrade setuptools pip wheel
+- sudo -H pip3 install --upgrade tox twine
 script:
   - npm run lint
   - npm run lint-test
