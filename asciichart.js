@@ -4,18 +4,41 @@
 
     exports.plot = function (series, cfg = undefined) {
 
+        var toFixedTrailing = function(x, trailing = 2) {
+            if (Math.abs(x) > 1) {
+                var trailing = trailing || 0,
+                    neg = x < 0,
+                    power = Math.pow(10, trailing),
+                    x = Math.round(x * power),
+                    integral = String((neg ? Math.ceil : Math.floor)(x / power)),
+                    fraction = String((neg ? -x : x) % power),
+                    padding = new Array(Math.max(trailing - fraction.length, 0) + 1).join('0');
+
+                return trailing ? integral + '.' +  padding + fraction : integral;
+            } else {
+                var numDigits = x !== 0 ? Math.ceil(Math.log10(Math.abs(x))) : 0;
+                var rounded = Math.round(x*Math.pow(10,trailing-numDigits))*Math.pow(10,numDigits-trailing);
+                return rounded.toFixed(Math.max(trailing-numDigits,0));
+            }
+        }
+
+
         let min = series[0]
         let max = series[0]
 
+        let paddingLength = 0
         for (let i = 1; i < series.length; i++) {
             min = Math.min (min, series[i])
             max = Math.max (max, series[i])
+
+            var numChars = String(toFixedTrailing(series[i])).length
+            paddingLength = numChars > paddingLength ? numChars : paddingLength
         }
 
         let range   = Math.abs (max - min)
         cfg         = (typeof cfg !== 'undefined') ? cfg : {}
         let offset  = (typeof cfg.offset  !== 'undefined') ? cfg.offset  : 3
-        let padding = (typeof cfg.padding !== 'undefined') ? cfg.padding : '       '
+        let padding = (typeof cfg.padding !== 'undefined') ? cfg.padding : Array(paddingLength).fill(" ")
         let height  = (typeof cfg.height  !== 'undefined') ? cfg.height  : range
         let ratio   = height / range
         let min2    = Math.round (min * ratio)
@@ -23,7 +46,7 @@
         let rows    = Math.abs (max2 - min2)
         let width   = series.length + offset
         let format  = (typeof cfg.format !== 'undefined') ? cfg.format : function (x) {
-            return (padding + x.toFixed (2)).slice (-padding.length)
+            return (padding + toFixedTrailing(x)).slice (-padding.length)
         }
 
         let result = new Array (rows + 1) // empty space
