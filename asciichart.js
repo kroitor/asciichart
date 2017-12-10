@@ -2,25 +2,15 @@
 
 (function (exports) {
 
-    exports.plot = function (arrays, cfg = undefined) {
+    exports.plot = function (series, cfg = undefined) {
 
-        if (!Array.isArray (arrays[0]))
-            arrays = [ arrays ]
+        let min = series[0]
+        let max = series[0]
 
-        let min = arrays[0][0]
-        let max = arrays[0][0]
-        let minLength = arrays[0].length
-
-        for (let i = 0; i < arrays.length; i++) {
-            minLength =
-            for (let j = 0; j < arrays[i].length; j++) {
-                min = Math.min (min, arrays[i][j])
-                max = Math.max (max, arrays[i][j])
-            }
+        for (let i = 1; i < series.length; i++) {
+            min = Math.min (min, series[i])
+            max = Math.max (max, series[i])
         }
-
-        let minLength = arrays[0].length
-        for (let i = 0;)
 
         let range   = Math.abs (max - min)
         cfg         = (typeof cfg !== 'undefined') ? cfg : {}
