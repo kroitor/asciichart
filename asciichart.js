@@ -2,20 +2,30 @@
 
 (function (exports) {
 
-    exports.plot = function (series, cfg = undefined) {
+    exports.plot = function (arrays, cfg = undefined) {
 
-        let min = series[0]
-        let max = series[0]
+        if (!Array.isArray (arrays[0]))
+            arrays = [ arrays ]
 
-        for (let i = 1; i < series.length; i++) {
-            min = Math.min (min, series[i])
-            max = Math.max (max, series[i])
+        let min = arrays[0][0]
+        let max = arrays[0][0]
+        let minLength = arrays[0].length
+
+        for (let i = 0; i < arrays.length; i++) {
+            minLength =
+            for (let j = 0; j < arrays[i].length; j++) {
+                min = Math.min (min, arrays[i][j])
+                max = Math.max (max, arrays[i][j])
+            }
         }
+
+        let minLength = arrays[0].length
+        for (let i = 0;)
 
         let range   = Math.abs (max - min)
         cfg         = (typeof cfg !== 'undefined') ? cfg : {}
         let offset  = (typeof cfg.offset  !== 'undefined') ? cfg.offset  : 3
-        let padding = (typeof cfg.padding !== 'undefined') ? cfg.padding : '       '
+        let padding = (typeof cfg.padding !== 'undefined') ? cfg.padding : '           '
         let height  = (typeof cfg.height  !== 'undefined') ? cfg.height  : range
         let ratio   = height / range
         let min2    = Math.round (min * ratio)
@@ -37,7 +47,7 @@
         for (let y = min2; y <= max2; ++y) { // axis + labels
             let label = format (max - (y - min2) * range / rows, y - min2)
             result[y - min2][Math.max (offset - label.length, 0)] = label
-            result[y - min2][offset - 1] = (y == 0) ? '┼' : '┤' 
+            result[y - min2][offset - 1] = (y == 0) ? '┼' : '┤'
         }
 
         let y0 = Math.round (series[0] * ratio) - min2
@@ -48,7 +58,7 @@
             let y1 = Math.round (series[x + 1] * ratio) - min2
             if (y0 == y1) {
                 result[rows - y0][x + offset] = '─'
-            } else {                        
+            } else {
                 result[rows - y1][x + offset] = (y0 > y1) ? '╰' : '╭'
                 result[rows - y0][x + offset] = (y0 > y1) ? '╮' : '╯'
                 let from = Math.min (y0, y1)
@@ -60,6 +70,6 @@
         }
 
         return result.map (function (x) { return x.join ('') }).join ('\n')
-    }  
+    }
 
 }) (typeof exports === 'undefined' ? /* istanbul ignore next */ this['asciichart'] = {} : exports);
