@@ -16,6 +16,7 @@
         cfg         = (typeof cfg !== 'undefined') ? cfg : {}
         let offset  = (typeof cfg.offset  !== 'undefined') ? cfg.offset  : 3
         let padding = (typeof cfg.padding !== 'undefined') ? cfg.padding : '           '
+        let precision = (typeof cfg.precision !== 'undefined') ? cfg.precision : 2
         let height  = (typeof cfg.height  !== 'undefined') ? cfg.height  : range
         let ratio   = height / range
         let min2    = Math.round (min * ratio)
@@ -23,7 +24,7 @@
         let rows    = Math.abs (max2 - min2)
         let width   = series.length + offset
         let format  = (typeof cfg.format !== 'undefined') ? cfg.format : function (x) {
-            return (padding + x.toFixed (2)).slice (-padding.length)
+            return (padding + x.toFixed (precision)).slice (-padding.length)
         }
 
         let result = new Array (rows + 1) // empty space
