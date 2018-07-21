@@ -106,6 +106,7 @@ A util by [madnight](https://github.com/madnight) for drawing Bitcoin/Ether/altc
 
 Special thx to all who helped port it to other languages, great stuff!
 
+- [Python port](https://pypi.org/project/asciichartpy) included!
 - Java: [ASCIIGraph](https://github.com/MitchTalmadge/ASCIIGraph), ported by [MitchTalmadge](https://github.com/MitchTalmadge). If you're a Java-person, check it out!
 - Go: [asciigraph](https://github.com/guptarohit/asciigraph), ported by [guptarohit](https://github.com/guptarohit), Go people! )
 - Haskell: [asciichart](https://github.com/madnight/asciichart), ported by [madnight](https://github.com/madnight) to Haskell world!
