@@ -110,3 +110,12 @@ Special thx to all who helped port it to other languages, great stuff!
 - Java: [ASCIIGraph](https://github.com/MitchTalmadge/ASCIIGraph), ported by [MitchTalmadge](https://github.com/MitchTalmadge). If you're a Java-person, check it out!
 - Go: [asciigraph](https://github.com/guptarohit/asciigraph), ported by [guptarohit](https://github.com/guptarohit), Go people! )
 - Haskell: [asciichart](https://github.com/madnight/asciichart), ported by [madnight](https://github.com/madnight) to Haskell world!
+
+### Future work (coming soon, hopefully)
+
+- multi-line colored charts in console!
+- levels and points on the graph!
+- even better value formatting and auto-scaling!
+
+![preview](https://user-images.githubusercontent.com/1294454/31798504-ca2af4cc-b53c-11e7-946c-620d744f6d16.gif)
+
