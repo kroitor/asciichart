@@ -16,8 +16,8 @@ __all__ = ['plot']
 
 def plot(series, cfg={}):
 
-    minimum = min(series)
-    maximum = max(series)
+    minimum = cfg['minimum'] if 'minimum' in cfg else min(series)
+    maximum = cfg['maximum'] if 'maximum' in cfg else max(series)
 
     interval = abs(float(maximum) - float(minimum))
     offset = cfg['offset'] if 'offset' in cfg else 3
