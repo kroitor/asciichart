@@ -112,6 +112,7 @@ Special thx to all who helped port it to other languages, great stuff!
 - Haskell: [asciichart](https://github.com/madnight/asciichart), ported by [madnight](https://github.com/madnight) to Haskell world!
 - Ruby: [ascii_chart](https://github.com/zhustec/ascii_chart), ported by [zhustec](https://github.com/zhustec)!
 - Elixir: [asciichart](https://github.com/sndnv/asciichart), ported by [sndv](https://github.com/sndnv)!
+- Perl: [App::AsciiChart](https://github.com/vti/app-asciichart), ported by [vti](https://github.com/vti)!
 
 ### Future work (coming soon, hopefully)
 
