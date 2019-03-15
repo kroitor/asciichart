@@ -15,7 +15,10 @@ __all__ = ['plot']
 # -----------------------------------------------------------------------------
 
 def plot(series, cfg={}):
-
+    """ Possible cfg parameters are 'offset', 'padding', 'height' and 'format'.
+	cfg is a dictionary, thus dictionary syntax has to be used.
+	Example: print(plot(series, { 'height' :10 })) 
+	"""
     minimum = cfg['minimum'] if 'minimum' in cfg else min(series)
     maximum = cfg['maximum'] if 'maximum' in cfg else max(series)
 
