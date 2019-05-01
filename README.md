@@ -113,6 +113,7 @@ Special thx to all who helped port it to other languages, great stuff!
 - Ruby: [ascii_chart](https://github.com/zhustec/ascii_chart), ported by [zhustec](https://github.com/zhustec)!
 - Elixir: [asciichart](https://github.com/sndnv/asciichart), ported by [sndv](https://github.com/sndnv)!
 - Perl: [App::AsciiChart](https://github.com/vti/app-asciichart), ported by [vti](https://github.com/vti)!
+- C: [plot](https://github.com/annacrombie/plot), ported by [annacrombie](https://github.com/annacrombie) with a ruby extension!
 
 ### Future work (coming soon, hopefully)
 
