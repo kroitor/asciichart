@@ -8,3 +8,4 @@ dist/
 .tox
 *.sublime-workspace
 *.egg-info/
+tmp/
