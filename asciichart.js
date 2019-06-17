@@ -17,7 +17,7 @@
         let offset  = (typeof cfg.offset  !== 'undefined') ? cfg.offset  : 3
         let padding = (typeof cfg.padding !== 'undefined') ? cfg.padding : '           '
         let height  = (typeof cfg.height  !== 'undefined') ? cfg.height  : range
-        let ratio   = height / range
+        let ratio   = range !== 0 ? height / range : 1;
         let min2    = Math.round (min * ratio)
         let max2    = Math.round (max * ratio)
         let rows    = Math.abs (max2 - min2)
@@ -33,9 +33,8 @@
                 result[i][j] = ' '
             }
         }
-
         for (let y = min2; y <= max2; ++y) { // axis + labels
-            let label = format (max - (y - min2) * range / rows, y - min2)
+            let label = format (rows > 0 ? max - (y - min2) * range / rows : y, y - min2)
             result[y - min2][Math.max (offset - label.length, 0)] = label
             result[y - min2][offset - 1] = (y == 0) ? '┼' : '┤'
         }

@@ -37,3 +37,11 @@ s2[0] = Math.round (Math.random () * 15)
 for (i = 1; i < s2.length; i++)
     s2[i] = s2[i - 1] + Math.round (Math.random () * (Math.random () > 0.5 ? 2 : -2))
 console.log (asciichart.plot (s2) + "\n")
+
+console.log (line)
+console.log ("single value\n")
+
+var s3 = new Array (width)
+for (i = 0; i < width; i++)
+    s3[i] = 1.0
+console.log (asciichart.plot (s3) + "\n")
