@@ -10,10 +10,10 @@ __all__ = ['plot']
 
 # -----------------------------------------------------------------------------
 
-def plot(series, cfg=None):
+def plot(series, cfg=None, title=None):
     """ Possible cfg parameters are 'minimum', 'maximum', 'offset', 'height' and 'format'.
 	cfg is a dictionary, thus dictionary syntax has to be used.
-	Example: print(plot(series, { 'height' :10 })) 
+	Example: print(plot(series, { 'height' :10 }))
 	"""
     cfg = cfg or {}
     minimum = cfg['minimum'] if 'minimum' in cfg else min(series)
@@ -57,4 +57,9 @@ def plot(series, cfg=None):
             for y in range(start, end):
                 result[rows - y][x + offset] = '│'
 
-    return '\n'.join([''.join(row) for row in result])
+    plot_string = '\n'.join([''.join(row) for row in result])
+    if title:
+        n_padding = (plot_string.index('┤') + plot_string.index('\n')) // 2
+        title = ' ' * n_padding + title
+        plot_string = '\n'.join((title, plot_string))
+    return plot_string
