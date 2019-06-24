@@ -2,11 +2,7 @@
 
 # -----------------------------------------------------------------------------
 
-from math import cos
-from math import sin
-from math import pi
-from math import floor
-from math import ceil
+from math import ceil, floor
 
 # -----------------------------------------------------------------------------
 
@@ -14,17 +10,17 @@ __all__ = ['plot']
 
 # -----------------------------------------------------------------------------
 
-def plot(series, cfg={}):
-    """ Possible cfg parameters are 'offset', 'padding', 'height' and 'format'.
+def plot(series, cfg=None):
+    """ Possible cfg parameters are 'minimum', 'maximum', 'offset', 'height' and 'format'.
 	cfg is a dictionary, thus dictionary syntax has to be used.
 	Example: print(plot(series, { 'height' :10 })) 
 	"""
+    cfg = cfg or {}
     minimum = cfg['minimum'] if 'minimum' in cfg else min(series)
     maximum = cfg['maximum'] if 'maximum' in cfg else max(series)
 
     interval = abs(float(maximum) - float(minimum))
     offset = cfg['offset'] if 'offset' in cfg else 3
-    padding = cfg['padding'] if 'padding' in cfg else '           '
     height = cfg['height'] if 'height' in cfg else interval
     ratio = height / interval
     min2 = floor(float(minimum) * ratio)
