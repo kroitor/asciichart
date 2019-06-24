@@ -10,7 +10,7 @@ import sys
 here = path.abspath(path.dirname(__file__))
 
 # long description from README file
-with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
+with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 # version number and all other params from package.json
@@ -24,6 +24,7 @@ setup(
 
     description=package['description'],
     long_description=long_description,
+    long_description_content_type='text/markdown',
 
     url=package['homepage'],
 
