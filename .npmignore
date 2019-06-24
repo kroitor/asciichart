@@ -3,4 +3,9 @@ npm-debug.log
 .DS_Store
 coverage
 .nyc_output
+*.pyc
+dist/
+.tox
+*.sublime-workspace
+*.egg-info/
 tmp/
