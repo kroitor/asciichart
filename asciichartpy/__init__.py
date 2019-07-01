@@ -22,6 +22,8 @@ def plot(series, cfg=None, title=None):
     interval = abs(float(maximum) - float(minimum))
     offset = cfg['offset'] if 'offset' in cfg else 3
     height = cfg['height'] if 'height' in cfg else interval
+    if title:
+        height -= 1
     ratio = height / interval
     min2 = floor(float(minimum) * ratio)
     max2 = ceil(float(maximum) * ratio)
