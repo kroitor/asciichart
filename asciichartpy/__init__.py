@@ -24,37 +24,33 @@ def plot(series, cfg=None):
 
     interval = maximum - minimum
     offset = cfg['offset'] if 'offset' in cfg else 3
-    height = cfg['height'] if 'height' in cfg else interval
-    ratio = height / interval
-    min2 = floor(minimum * ratio)
-    max2 = ceil(maximum * ratio)
-
-    rows = max2 - min2
+    height = cfg['height'] if 'height' in cfg else ceil(interval)
+    ratio = interval / (height - 1)
     width = len(series) + offset
     placeholder = cfg['format'] if 'format' in cfg else '{:8.2f} '
 
-    result = [[' '] * width for i in range(rows + 1)]
+    result = [[' '] * width for i in range(height)]
 
     # axis and labels
-    for y in range(min2, max2 + 1):
-        label = placeholder.format(maximum - ((y - min2) * interval / rows))
-        result[y - min2][max(offset - len(label), 0)] = label
-        result[y - min2][offset - 1] = '┼' if y == 0 else '┤'
+    for i in range(height):
+        label = placeholder.format(minimum + i * ratio)
+        result[i][max(offset - len(label), 0)] = label
+        result[i][offset - 1] = '┼' if i == 0 else '┤'
 
-    y0 = int(series[0] * ratio - min2)
-    result[rows - y0][offset - 1] = '┼' # first value
+    y0 = int((series[0] - minimum) / ratio)
+    result[y0][offset - 1] = '┼' # first value
 
-    for x in range(len(series) - 1): # plot the line
-        y0 = round(series[x + 0] * ratio) - min2
-        y1 = round(series[x + 1] * ratio) - min2
+    for i in range(len(series) - 1): # plot the line
+        y0 = round((series[i] - minimum) / ratio)
+        y1 = round((series[i + 1] - minimum) / ratio)
         if y0 == y1:
-            result[rows - y0][x + offset] = '─'
+            result[y0][i + offset] = '─'
         else:
-            result[rows - y1][x + offset] = '╰' if y0 > y1 else '╭'
-            result[rows - y0][x + offset] = '╮' if y0 > y1 else '╯'
+            result[y1][i + offset] = '╰' if y0 > y1 else '╭'
+            result[y0][i + offset] = '╮' if y0 > y1 else '╯'
             start = min(y0, y1) + 1
             end = max(y0, y1)
             for y in range(start, end):
-                result[rows - y][x + offset] = '│'
+                result[y][i + offset] = '│'
 
-    return '\n'.join([''.join(row) for row in result])
+    return '\n'.join([''.join(row) for row in result[::-1]])
