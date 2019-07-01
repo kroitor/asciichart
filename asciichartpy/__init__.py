@@ -63,9 +63,9 @@ def plot(series, cfg=None, title=None):
     if title:
         # Center the title over the non-axis portion of the plot.
         # If the title is too long, start just after axis ends.
-        n_padding = plot_string.index('┤')
-        plot_length = plot_string.index('\n') - plot_string.index('┤')
-        n_padding += max((plot_length - len(title)) // 2, 1)
+        axis_idx = min(plot_string.index('┤'), plot_string.index('┼'))
+        plot_length = plot_string.index('\n') - axis_idx
+        n_padding = axis_idx + max((plot_length - len(title)) // 2, 1)
         title = ' ' * n_padding + title
         plot_string = '\n'.join((title, plot_string))
     return plot_string
