@@ -115,6 +115,7 @@ Special thx to all who helped port it to other languages, great stuff!
 - Perl: [App::AsciiChart](https://github.com/vti/app-asciichart), ported by [vti](https://github.com/vti)!
 - C: [plot](https://github.com/annacrombie/plot), ported by [annacrombie](https://github.com/annacrombie) with a ruby extension!
 - Rust: [rasciigraph](https://github.com/orhanbalci/rasciigraph), ported by [orhanbalci](https://github.com/orhanbalci)!
+- PHP: [PHP-colored-ascii-linechart](https://github.com/noximo/PHP-colored-ascii-linechart), ported by [noximo](https://github.com/noximo)!
 
 ### Future work (coming soon, hopefully)
 
