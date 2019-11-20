@@ -19,6 +19,13 @@ def plot(series, cfg=None):
     minimum = cfg['minimum'] if 'minimum' in cfg else min(series)
     maximum = cfg['maximum'] if 'maximum' in cfg else max(series)
 
+
+# for series with one elements or fill with the same value 
+# not the perfect solution but it works    
+    if minimum == maximum :
+        maximum += 0.00001
+
+
     interval = abs(float(maximum) - float(minimum))
     offset = cfg['offset'] if 'offset' in cfg else 3
     height = cfg['height'] if 'height' in cfg else interval
