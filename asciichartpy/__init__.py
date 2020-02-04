@@ -41,7 +41,7 @@ def plot(series, cfg=None):
         result[y - min2][max(offset - len(label), 0)] = label
         result[y - min2][offset - 1] = '┼' if y == 0 else '┤'
 
-    y0 = int(series[0] * ratio - min2)
+    y0 = round(series[0] * ratio - min2)
     result[rows - y0][offset - 1] = '┼' # first value
 
     for x in range(len(series) - 1): # plot the line
