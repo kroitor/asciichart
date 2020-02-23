@@ -11,7 +11,11 @@ from math import ceil, floor, isnan
 
 __all__ = ['plot']
 
-def _isan(n):
+# Python 3.2 has math.isfinite, which could have been used, but to support older
+# versions, this little helper is shorter than having to keep doing not isnan(),
+# plus the double-negative of "not is not a number" is confusing, so this should
+# help with readability.
+def _isnum(n):
     return not isnan(n)
 
 def plot(series, cfg=None):
@@ -77,8 +81,8 @@ def plot(series, cfg=None):
         return ''
 
     cfg = cfg or {}
-    minimum = cfg['minimum'] if 'minimum' in cfg else min(filter(_isan, series))
-    maximum = cfg['maximum'] if 'maximum' in cfg else max(filter(_isan, series))
+    minimum = cfg['minimum'] if 'minimum' in cfg else min(filter(_isnum, series))
+    maximum = cfg['maximum'] if 'maximum' in cfg else max(filter(_isnum, series))
 
     if minimum > maximum:
         raise ValueError('The minimum value cannot exceed the maximum value.')
@@ -111,7 +115,7 @@ def plot(series, cfg=None):
 
     # first value is a tick mark across the y-axis
     d0 = series[0]
-    if not isnan(d0):
+    if _isnum(d0):
         result[rows - scaled(d0)][offset - 1] = '┼'
 
     # plot the line
@@ -122,11 +126,11 @@ def plot(series, cfg=None):
         if isnan(d0) and isnan(d1):
             continue
 
-        if isnan(d0) and _isan(d1):
+        if isnan(d0) and _isnum(d1):
             result[rows - scaled(d1)][x + offset] = '╶'
             continue
 
-        if _isan(d0) and isnan(d1):
+        if _isnum(d0) and isnan(d1):
             result[rows - scaled(d0)][x + offset] = '╴'
             continue
 
