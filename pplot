@@ -12,10 +12,12 @@ def parse_args():
     parser.add_argument("--format", help="Format for tick numbers.")
     parser.add_argument("--minimum", type=float, help="Min y value.")
     parser.add_argument("--maximum", type=float, help="Max y value.")
+    parser.add_argument("--title")
     return parser.parse_args()
 
 if __name__ == "__main__":
     args = vars(parse_args())
     series = args.pop("series")
+    title = args.pop("title")
     cfg = {k: v for k, v in args.items() if v is not None}
-    print(plot(series, cfg))
+    print(plot(series, cfg, title))

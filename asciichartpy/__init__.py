@@ -11,7 +11,7 @@ __all__ = ['plot']
 
 # -----------------------------------------------------------------------------
 
-def plot(series, cfg=None):
+def plot(series, cfg=None, title=None):
     """ Possible cfg parameters are 'minimum', 'maximum', 'offset', 'height' and 'format'.
 	cfg is a dictionary, thus dictionary syntax has to be used.
 	Example: print(plot(series, { 'height' :10 }))
@@ -25,6 +25,8 @@ def plot(series, cfg=None):
     interval = maximum - minimum
     offset = cfg['offset'] if 'offset' in cfg else 3
     height = cfg['height'] if 'height' in cfg else interval
+    if title:
+        height -= 1
     ratio = height / interval
     min2 = floor(minimum * ratio)
     max2 = ceil(maximum * ratio)
@@ -57,4 +59,13 @@ def plot(series, cfg=None):
             for y in range(start, end):
                 result[rows - y][x + offset] = '│'
 
-    return '\n'.join([''.join(row) for row in result])
+    plot_string = '\n'.join([''.join(row) for row in result])
+    if title:
+        # Center the title over the non-axis portion of the plot.
+        # If the title is too long, start just after axis ends.
+        axis_idx = min(plot_string.index('┤'), plot_string.index('┼'))
+        plot_length = plot_string.index('\n') - axis_idx
+        n_padding = axis_idx + max((plot_length - len(title)) // 2, 1)
+        title = ' ' * n_padding + title
+        plot_string = '\n'.join((title, plot_string))
+    return plot_string
