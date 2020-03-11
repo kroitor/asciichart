@@ -116,6 +116,7 @@ Special thx to all who helped port it to other languages, great stuff!
 - C: [plot](https://github.com/annacrombie/plot), ported by [annacrombie](https://github.com/annacrombie) with a ruby extension!
 - Rust: [rasciigraph](https://github.com/orhanbalci/rasciigraph), ported by [orhanbalci](https://github.com/orhanbalci)!
 - PHP: [PHP-colored-ascii-linechart](https://github.com/noximo/PHP-colored-ascii-linechart), ported by [noximo](https://github.com/noximo)!
+- C#: [asciichart-sharp](https://github.com/samcarton/asciichart-sharp), ported by [samcarton](https://github.com/samcarton)!
 
 ### Future work (coming soon, hopefully)
 
