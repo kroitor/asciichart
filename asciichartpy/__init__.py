@@ -28,41 +28,41 @@ def plot(series, cfg=None):
 
         >>> series = [1,2,3,4,float("nan"),4,3,2,1]
         >>> print(asciichartpy.plot(series))
-        4.00  ┤  ╭╴╶╮   
-        3.00  ┤ ╭╯  ╰╮  
-        2.00  ┤╭╯    ╰╮ 
-        1.00  ┼╯      ╰ 
-    
+        4.00  ┤  ╭╴╶╮
+        3.00  ┤ ╭╯  ╰╮
+        2.00  ┤╭╯    ╰╮
+        1.00  ┼╯      ╰
+
     `cfg` is an optional dictionary of various parameters to tune the appearance
     of the chart. `minimum` and `maximum` will clamp the y-axis and all values:
 
         >>> series = [1,2,3,4,float("nan"),4,3,2,1]
         >>> print(asciichartpy.plot(series, {'minimum': 0}))
-        4.00  ┼  ╭╴╶╮   
-        3.00  ┤ ╭╯  ╰╮  
-        2.00  ┤╭╯    ╰╮ 
-        1.00  ┼╯      ╰ 
-        0.00  ┤         
+        4.00  ┼  ╭╴╶╮
+        3.00  ┤ ╭╯  ╰╮
+        2.00  ┤╭╯    ╰╮
+        1.00  ┼╯      ╰
+        0.00  ┤
 
         >>> print(asciichartpy.plot(series, {'minimum': 2}))
-        4.00  ┤  ╭╴╶╮   
-        3.00  ┤ ╭╯  ╰╮  
-        2.00  ┼─╯    ╰─ 
+        4.00  ┤  ╭╴╶╮
+        3.00  ┤ ╭╯  ╰╮
+        2.00  ┼─╯    ╰─
 
         >>> print(asciichartpy.plot(series, {'minimum': 2, 'maximum': 3}))
-        3.00  ┤ ╭─╴╶─╮  
-        2.00  ┼─╯    ╰─ 
+        3.00  ┤ ╭─╴╶─╮
+        2.00  ┼─╯    ╰─
 
     `height` specifies the number of rows the graph should occupy. It can be
     used to scale down a graph with large data values:
 
         >>> series = [10,20,30,40,50,40,30,20,10]
         >>> print(asciichartpy.plot(series, {'height': 4}))
-        50.00  ┤   ╭╮    
-        40.00  ┤  ╭╯╰╮   
-        30.00  ┤ ╭╯  ╰╮  
-        20.00  ┤╭╯    ╰╮ 
-        10.00  ┼╯      ╰ 
+        50.00  ┤   ╭╮
+        40.00  ┤  ╭╯╰╮
+        30.00  ┤ ╭╯  ╰╮
+        20.00  ┤╭╯    ╰╮
+        10.00  ┼╯      ╰
 
     `format` specifies a Python format string used to format the labels on the
     y-axis. The default value is "{:8.2f} ". This can be used to remove the
@@ -70,12 +70,12 @@ def plot(series, cfg=None):
 
         >>> series = [10,20,30,40,50,40,30,20,10]
         >>> print(asciichartpy.plot(series, {'height': 4, 'format':'{:8.0f} '}))
-        40  ┼  ╭╮  
-        30  ┤  │╰╮ 
-        20  ┤ ╭╯ │ 
-        10  ┼╮│  ╰ 
-         0  ┤╰╯    
-        >>> 
+        40  ┼  ╭╮
+        30  ┤  │╰╮
+        20  ┤ ╭╯ │
+        10  ┼╮│  ╰
+         0  ┤╰╯
+        >>>
 	"""
     if not series or all(isnan(n) for n in series):
         return ''
@@ -90,16 +90,16 @@ def plot(series, cfg=None):
     interval = maximum - minimum
     offset = cfg['offset'] if 'offset' in cfg else 3
     height = cfg['height'] if 'height' in cfg else interval
-    ratio = height / interval
+    ratio = height / interval if interval > 0 else 1
 
-    min2 = floor(minimum * ratio)
-    max2 = ceil(maximum * ratio)
+    min2 = int(floor(minimum * ratio))
+    max2 = int(ceil(maximum * ratio))
 
     def clamp(n):
         return min(max(n, minimum), maximum)
 
     def scaled(y):
-        return round(clamp(y) * ratio) - min2
+        return int(round(clamp(y) * ratio) - min2)
 
     rows = max2 - min2
     width = len(series) + offset
@@ -109,7 +109,7 @@ def plot(series, cfg=None):
 
     # axis and labels
     for y in range(min2, max2 + 1):
-        label = placeholder.format(maximum - ((y - min2) * interval / rows))
+        label = placeholder.format(maximum - ((y - min2) * interval / (rows if rows else 1)))
         result[y - min2][max(offset - len(label), 0)] = label
         result[y - min2][offset - 1] = '┼' if y == 0 else '┤'
 
