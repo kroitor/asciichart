@@ -77,7 +77,7 @@ def plot(series, cfg=None):
          0  ┤╰╯
         >>>
 	"""
-    if not any(series) or all(isnan(n) for n in series):
+    if len(series) == 0 or all(isnan(n) for n in series):
         return ''
 
     cfg = cfg or {}
