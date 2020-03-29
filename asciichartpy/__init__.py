@@ -83,6 +83,8 @@ def plot(series, cfg=None):
     cfg = cfg or {}
     minimum = cfg['minimum'] if 'minimum' in cfg else min(filter(_isnum, series))
     maximum = cfg['maximum'] if 'maximum' in cfg else max(filter(_isnum, series))
+    default_symbols = ['┼', '┤', '╶', '╴', '─', '╰', '╭', '╮', '╯', '│']
+    symbols = cfg['symbols'] if 'symbols' in cfg else default_symbols
 
     if minimum > maximum:
         raise ValueError('The minimum value cannot exceed the maximum value.')
@@ -111,12 +113,12 @@ def plot(series, cfg=None):
     for y in range(min2, max2 + 1):
         label = placeholder.format(maximum - ((y - min2) * interval / (rows if rows else 1)))
         result[y - min2][max(offset - len(label), 0)] = label
-        result[y - min2][offset - 1] = '┼' if y == 0 else '┤'
+        result[y - min2][offset - 1] = symbols[0] if y == 0 else symbols[1]  # zero tick mark
 
     # first value is a tick mark across the y-axis
     d0 = series[0]
     if _isnum(d0):
-        result[rows - scaled(d0)][offset - 1] = '┼'
+        result[rows - scaled(d0)][offset - 1] = symbols[0]
 
     # plot the line
     for x in range(len(series) - 1):
@@ -127,25 +129,25 @@ def plot(series, cfg=None):
             continue
 
         if isnan(d0) and _isnum(d1):
-            result[rows - scaled(d1)][x + offset] = '╶'
+            result[rows - scaled(d1)][x + offset] = symbols[2]
             continue
 
         if _isnum(d0) and isnan(d1):
-            result[rows - scaled(d0)][x + offset] = '╴'
+            result[rows - scaled(d0)][x + offset] = symbols[3]
             continue
 
         y0 = scaled(d0)
         y1 = scaled(d1)
         if y0 == y1:
-            result[rows - y0][x + offset] = '─'
+            result[rows - y0][x + offset] = symbols[4]
             continue
 
-        result[rows - y1][x + offset] = '╰' if y0 > y1 else '╭'
-        result[rows - y0][x + offset] = '╮' if y0 > y1 else '╯'
+        result[rows - y1][x + offset] = symbols[5] if y0 > y1 else symbols[6]
+        result[rows - y0][x + offset] = symbols[7] if y0 > y1 else symbols[8]
 
         start = min(y0, y1) + 1
         end = max(y0, y1)
         for y in range(start, end):
-            result[rows - y][x + offset] = '│'
+            result[rows - y][x + offset] = symbols[9]
 
     return '\n'.join([''.join(row) for row in result])
