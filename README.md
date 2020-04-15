@@ -96,6 +96,57 @@ console.log (asciichart.plot (s2))
 
 <img width="788" alt="Console ASCII Line charts in pure Javascript (for NodeJS and browsers)" src="https://cloud.githubusercontent.com/assets/1294454/22818710/9f157a74-ef7f-11e6-893a-f7494b5abef1.png">
 
+### Multiple Series Plotting
+
+```javascript
+var s2 = new Array (120)
+s2[0] = Math.round (Math.random () * 15)
+for (i = 1; i < s2.length; i++)
+    s2[i] = s2[i - 1] + Math.round (Math.random () * (Math.random () > 0.5 ? 2 : -2))
+
+var s3 = new Array (120)
+s3[0] = Math.round (Math.random () * 15)
+for (i = 1; i < s3.length; i++)
+    s3[i] = s3[i - 1] + Math.round (Math.random () * (Math.random () > 0.5 ? 2 : -2))
+
+console.log (asciichart.plot ([s2, s3]))
+```
+
+<img width="788" alt="Console ASCII Line charts in pure Javascript (for NodeJS and browsers)" src="https://user-images.githubusercontent.com/27967284/79398277-5322da80-7f91-11ea-8da8-e47976b76c12.png">
+
+### Multiple Series Plotting (Coloring)
+
+```javascript
+var arr1 = new Array(120)
+arr1[0] = Math.round(Math.random() * 15)
+for (i = 1; i < arr1.length; i++)
+    arr1[i] = arr1[i - 1] + Math.round(Math.random() * (Math.random() > 0.5 ? 2 : -2))
+
+var arr2 = new Array(120)
+arr2[0] = Math.round(Math.random() * 15)
+for (i = 1; i < arr2.length; i++)
+    arr2[i] = arr2[i - 1] + Math.round(Math.random() * (Math.random() > 0.5 ? 2 : -2))
+
+var arr3 = new Array(120)
+arr3[0] = Math.round(Math.random() * 15)
+for (i = 1; i < arr3.length; i++)
+    arr3[i] = arr3[i - 1] + Math.round(Math.random() * (Math.random() > 0.5 ? 2 : -2))
+
+var arr4 = new Array(120)
+arr4[0] = Math.round(Math.random() * 15)
+for (i = 1; i < arr4.length; i++)
+    arr4[i] = arr4[i - 1] + Math.round(Math.random() * (Math.random() > 0.5 ? 2 : -2))
+
+var config = {
+    colors: [asciichart.Colors.FG.Blue, asciichart.Colors.FG.Green,
+    asciichart.Colors.FG.Magenta, asciichart.Colors.FG.Red]
+}
+
+console.log(asciichart.plot([arr1, arr2, arr3, arr4], config))
+```
+
+<img width="788" alt="Console ASCII Line charts in pure Javascript (for NodeJS and browsers)" src="https://user-images.githubusercontent.com/27967284/79398700-51a5e200-7f92-11ea-9048-8dbdeeb60830.png">
+
 ### See Also
 
 A util by [madnight](https://github.com/madnight) for drawing Bitcoin/Ether/altcoin charts in command-line console: [bitcoin-chart-cli](https://github.com/madnight/bitcoin-chart-cli).
