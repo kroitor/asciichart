@@ -1,12 +1,13 @@
 "use strict";
 
-function colored(char, clr){
+function colored(char, clr) {
     var colors = require('./colors')
-    clr = colors[clr] === undefined ? colors['Reset'] : colors[clr]
-    return  clr + char + colors['Reset']
+    clr = clr === undefined ? colors.Reset : clr
+    return clr + char + colors.Reset
 }
 
 (function (exports) {
+    exports.Colors = require('./colors')
 
     exports.plot = function (series, cfg = undefined) {
         // Function takes oth one array and array of arrays.
@@ -14,7 +15,7 @@ function colored(char, clr){
         if (typeof(series[0]) == "number"){
             series = [series]
         }
-        
+
         let min = series[0][0]
         let max = series[0][0]
 
@@ -31,7 +32,7 @@ function colored(char, clr){
         let offset  = (typeof cfg.offset  !== 'undefined') ? cfg.offset  : 3
         let padding = (typeof cfg.padding !== 'undefined') ? cfg.padding : '           '
         let height  = (typeof cfg.height  !== 'undefined') ? cfg.height  : range
-        let colors  = (typeof cfg.colors  !== 'undefined') ? cfg.colors  : ['Reset']
+        let colors  = (typeof cfg.colors !== 'undefined') ? cfg.colors : []
         let ratio   = range !== 0 ? height / range : 1;
         let min2    = Math.round (min * ratio)
         let max2    = Math.round (max * ratio)
@@ -61,7 +62,7 @@ function colored(char, clr){
         for (let j = 0; j < series.length; j++) {   
             let currentColor = colors[j % colors.length]
             let y0 = Math.round (series[j][0] * ratio) - min2
-            result[rows - y0][offset - 1] = symbols[0] // first value
+            result[rows - y0][offset - 1] = colored(symbols[0], currentColor) // first value
 
             for (let x = 0; x < series[j].length - 1; x++) { // plot the line
                 let y0 = Math.round (series[j][x + 0] * ratio) - min2

@@ -99,6 +99,15 @@ for (var i = 0; i < arr4.length; i++)
     arr4[i] = 10 + 5 * Math.cos(i * ((Math.PI * 4) / arr1.length))
 
 var config = {
-    colors: ['FgYellow', 'Reset', 'FgMagenta']
+    colors: [asciichart.Colors.FG.Blue, asciichart.Colors.FG.Green, asciichart.Colors.FG.Magenta, asciichart.Colors.FG.Red]
+}
+console.log(asciichart.plot([arr1, arr2, arr3, arr4], config))
+
+// test multiple colored background
+console.log(line)
+console.log("multiple intersecting arrays with colors test\n")
+
+var config = {
+    colors: [asciichart.Colors.BG.Blue, asciichart.Colors.BG.Green, asciichart.Colors.BG.Magenta, asciichart.Colors.BG.Red]
 }
 console.log(asciichart.plot([arr1, arr2, arr3, arr4], config))
