@@ -45,3 +45,36 @@ var s3 = new Array (width)
 for (i = 0; i < width; i++)
     s3[i] = 1.0
 console.log (asciichart.plot (s3) + "\n")
+
+// test multiple
+console.log (line)
+console.log ("multiple disjoint array test\n")
+
+
+var arr1 = new Array(width)
+for (var i = 0; i < arr1.length; i++)
+    arr1[i] = 5 * Math.sin(i * ((Math.PI * 4) / arr1.length))
+
+var arr2 = new Array(width)
+for (var i = 0; i < arr2.length; i++)
+    arr2[i] = arr1[i] + 2
+    
+console.log(asciichart.plot([arr1, arr2]))
+
+
+// test multiple
+console.log (line)
+console.log ("multiple intersecting arrays test\n")
+
+
+var arr1 = new Array(width)
+for (var i = 0; i < arr1.length; i++)
+    arr1[i] = 5 * Math.sin(i * ((Math.PI * 4) / arr1.length))
+
+var arr2 = new Array(width)
+for (var i = 0; i < arr2.length; i++)
+    arr2[i] = 5 *  Math.sin(Math.PI + i * ((Math.PI * 4) / arr2.length))
+
+    
+console.log(asciichart.plot([arr1, arr2]))
+

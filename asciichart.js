@@ -3,13 +3,20 @@
 (function (exports) {
 
     exports.plot = function (series, cfg = undefined) {
+        // Function takes oth one array and array of arrays.
+        // if user passes array of numbers we transform it to array of 1 array containing numbers
+        if (typeof(series[0]) == "number"){
+            series = [series]
+        }
+        
+        let min = series[0][0]
+        let max = series[0][0]
 
-        let min = series[0]
-        let max = series[0]
-
-        for (let i = 1; i < series.length; i++) {
-            min = Math.min (min, series[i])
-            max = Math.max (max, series[i])
+        for (let j = 0; j < series.length; j++) {
+            for (let i = 0; i < series[j].length; i++) {
+                min = Math.min(min, series[j][i])
+                max = Math.max(max, series[j][i])
+            }
         }
 
         let defaultSymbols = [ '┼', '┤', '╶', '╴', '─', '╰', '╭', '╮', '╯', '│' ]
@@ -22,7 +29,10 @@
         let min2    = Math.round (min * ratio)
         let max2    = Math.round (max * ratio)
         let rows    = Math.abs (max2 - min2)
-        let width   = series.length + offset
+        let width = 0
+        for (let i = 0; i < series.length; i++)
+            width = Math.max(width, series[i].length)
+        width = width + offset
         let symbols = (typeof cfg.symbols !== 'undefined') ? cfg.symbols : defaultSymbols
         let format  = (typeof cfg.format !== 'undefined') ? cfg.format : function (x) {
             return (padding + x.toFixed (2)).slice (-padding.length)
@@ -40,26 +50,27 @@
             result[y - min2][Math.max (offset - label.length, 0)] = label
             result[y - min2][offset - 1] = (y == 0) ? symbols[0] : symbols[1]
         }
+        
+        for (let j = 0; j < series.length; j++) {   
+            let y0 = Math.round (series[j][0] * ratio) - min2
+            result[rows - y0][offset - 1] = symbols[0] // first value
 
-        let y0 = Math.round (series[0] * ratio) - min2
-        result[rows - y0][offset - 1] = symbols[0] // first value
-
-        for (let x = 0; x < series.length - 1; x++) { // plot the line
-            let y0 = Math.round (series[x + 0] * ratio) - min2
-            let y1 = Math.round (series[x + 1] * ratio) - min2
-            if (y0 == y1) {
-                result[rows - y0][x + offset] = symbols[4]
-            } else {
-                result[rows - y1][x + offset] = (y0 > y1) ? symbols[5] : symbols[6]
-                result[rows - y0][x + offset] = (y0 > y1) ? symbols[7] : symbols[8]
-                let from = Math.min (y0, y1)
-                let to = Math.max (y0, y1)
-                for (let y = from + 1; y < to; y++) {
-                    result[rows - y][x + offset] = symbols[9]
+            for (let x = 0; x < series[j].length - 1; x++) { // plot the line
+                let y0 = Math.round (series[j][x + 0] * ratio) - min2
+                let y1 = Math.round (series[j][x + 1] * ratio) - min2
+                if (y0 == y1) {
+                    result[rows - y0][x + offset] = symbols[4]
+                } else {
+                    result[rows - y1][x + offset] = (y0 > y1) ? symbols[5] : symbols[6]
+                    result[rows - y0][x + offset] = (y0 > y1) ? symbols[7] : symbols[8]
+                    let from = Math.min (y0, y1)
+                    let to = Math.max (y0, y1)
+                    for (let y = from + 1; y < to; y++) {
+                        result[rows - y][x + offset] =  symbols[9]
+                    }
                 }
             }
         }
-
         return result.map (function (x) { return x.join ('') }).join ('\n')
     }
 
