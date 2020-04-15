@@ -1,5 +1,11 @@
 "use strict";
 
+function colored(char, clr){
+    var colors = require('./colors')
+    clr = colors[clr] === undefined ? colors['Reset'] : colors[clr]
+    return  clr + char + colors['Reset']
+}
+
 (function (exports) {
 
     exports.plot = function (series, cfg = undefined) {
@@ -25,6 +31,7 @@
         let offset  = (typeof cfg.offset  !== 'undefined') ? cfg.offset  : 3
         let padding = (typeof cfg.padding !== 'undefined') ? cfg.padding : '           '
         let height  = (typeof cfg.height  !== 'undefined') ? cfg.height  : range
+        let colors  = (typeof cfg.colors  !== 'undefined') ? cfg.colors  : ['Reset']
         let ratio   = range !== 0 ? height / range : 1;
         let min2    = Math.round (min * ratio)
         let max2    = Math.round (max * ratio)
@@ -52,6 +59,7 @@
         }
         
         for (let j = 0; j < series.length; j++) {   
+            let currentColor = colors[j % colors.length]
             let y0 = Math.round (series[j][0] * ratio) - min2
             result[rows - y0][offset - 1] = symbols[0] // first value
 
@@ -59,14 +67,14 @@
                 let y0 = Math.round (series[j][x + 0] * ratio) - min2
                 let y1 = Math.round (series[j][x + 1] * ratio) - min2
                 if (y0 == y1) {
-                    result[rows - y0][x + offset] = symbols[4]
+                    result[rows - y0][x + offset] = colored(symbols[4], currentColor)
                 } else {
-                    result[rows - y1][x + offset] = (y0 > y1) ? symbols[5] : symbols[6]
-                    result[rows - y0][x + offset] = (y0 > y1) ? symbols[7] : symbols[8]
+                    result[rows - y1][x + offset] = colored((y0 > y1) ? symbols[5] : symbols[6], currentColor)
+                    result[rows - y0][x + offset] = colored((y0 > y1) ? symbols[7] : symbols[8], currentColor)
                     let from = Math.min (y0, y1)
                     let to = Math.max (y0, y1)
                     for (let y = from + 1; y < to; y++) {
-                        result[rows - y][x + offset] =  symbols[9]
+                        result[rows - y][x + offset] = colored( symbols[9], currentColor)
                     }
                 }
             }

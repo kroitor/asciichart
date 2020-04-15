@@ -78,3 +78,27 @@ for (var i = 0; i < arr2.length; i++)
     
 console.log(asciichart.plot([arr1, arr2]))
 
+// test multiple colored
+console.log(line)
+console.log("multiple intersecting arrays with colors test\n")
+
+var arr1 = new Array(width)
+for (var i = 0; i < arr1.length; i++)
+    arr1[i] = 5 * Math.sin(i * ((Math.PI * 4) / arr1.length))
+
+var arr2 = new Array(width)
+for (var i = 0; i < arr2.length; i++)
+    arr2[i] = 5 * Math.sin(Math.PI + i * ((Math.PI * 4) / arr2.length))
+
+var arr3 = new Array(width)
+for (var i = 0; i < arr3.length; i++)
+    arr3[i] = 5 - i * 0.2
+
+var arr4 = new Array(width)
+for (var i = 0; i < arr4.length; i++)
+    arr4[i] = 10 + 5 * Math.cos(i * ((Math.PI * 4) / arr1.length))
+
+var config = {
+    colors: ['FgYellow', 'Reset', 'FgMagenta']
+}
+console.log(asciichart.plot([arr1, arr2, arr3, arr4], config))
