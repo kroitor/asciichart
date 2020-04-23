@@ -99,7 +99,7 @@ for (var i = 0; i < arr4.length; i++)
     arr4[i] = 10 + 5 * Math.cos(i * ((Math.PI * 4) / arr1.length))
 
 var config = {
-    colors: [asciichart.Colors.FG.Blue, asciichart.Colors.FG.Green, asciichart.Colors.FG.Magenta, asciichart.Colors.FG.Red]
+    colors: [asciichart.colors.FG.Blue, asciichart.colors.FG.Green, asciichart.colors.FG.Magenta, asciichart.colors.FG.Red]
 }
 console.log(asciichart.plot([arr1, arr2, arr3, arr4], config))
 
@@ -108,6 +108,6 @@ console.log(line)
 console.log("multiple intersecting arrays with colors test\n")
 
 var config = {
-    colors: [asciichart.Colors.BG.Blue, asciichart.Colors.BG.Green, asciichart.Colors.BG.Magenta, asciichart.Colors.BG.Red]
+    colors: [asciichart.colors.BG.Blue, asciichart.colors.BG.Green, asciichart.colors.BG.Magenta, asciichart.colors.BG.Red]
 }
 console.log(asciichart.plot([arr1, arr2, arr3, arr4], config))
