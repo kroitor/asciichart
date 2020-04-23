@@ -138,8 +138,8 @@ for (i = 1; i < arr4.length; i++)
     arr4[i] = arr4[i - 1] + Math.round(Math.random() * (Math.random() > 0.5 ? 2 : -2))
 
 var config = {
-    colors: [asciichart.Colors.FG.Blue, asciichart.Colors.FG.Green,
-    asciichart.Colors.FG.Magenta, asciichart.Colors.FG.Red]
+    colors: [asciichart.colors.FG.Blue, asciichart.colors.FG.Green,
+    asciichart.colors.FG.Magenta, asciichart.colors.FG.Red]
 }
 
 console.log(asciichart.plot([arr1, arr2, arr3, arr4], config))
