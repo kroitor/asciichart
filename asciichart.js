@@ -1,22 +1,49 @@
 "use strict";
 
 (function (exports) {
-    
-    let colors = require ('./colors')
+
+    exports.black = 0
+    exports.red = 1,
+    exports.green = 2
+    exports.yellow = 3
+    exports.blue = 4
+    exports.magenta = 5
+    exports.cyan = 6
+    exports.lightgray = 7
+    exports.default = 9
+    exports.darkgray = 60
+    exports.lightred = 61
+    exports.lightgreen = 62
+    exports.lightyellow = 63
+    exports.lightblue = 64
+    exports.lightmagenta = 65
+    exports.lightcyan = 66
+    exports.white = 67
+    exports.escape = "\x1b["
+    exports.end = "m"
+    exports.reset = exports.escape + "0" + exports.end
 
     function colored (char, color) {
         // do not color it if color is not specified
-        let openingColor = (color === undefined) ? '' : color
-        let closingColor = (color === undefined) ? '' : colors.Reset
-        return openingColor + char + closingColor
+        if (color === undefined) {
+            return char;
+        } else if (Array.isArray (color)) {
+            let foreground = 30 + ((color[0] === undefined) ? exports.default : color[0])
+            let background = 40 + ((color[1] === undefined) ? exports.default : color[1])
+            foreground = foreground.toString ()
+            background = background.toString ()
+            return exports.escape + foreground + ';' + background + exports.end + char + exports.reset
+        } else {
+            let foreground = (30 + color).toString ()
+            return exports.escape + foreground + exports.end + char + exports.reset
+        }
     }
-    
-    exports.colors = colors
+
     exports.colored = colored
 
     exports.plot = function (series, cfg = undefined) {
         // this function takes oth one array and array of arrays
-        // if an array of numbers is passed it is transfored to 
+        // if an array of numbers is passed it is transfored to
         // an array of exactly one array with numbers
         if (typeof(series[0]) == "number"){
             series = [series]
@@ -65,8 +92,8 @@
             result[y - min2][Math.max (offset - label.length, 0)] = label
             result[y - min2][offset - 1] = (y == 0) ? symbols[0] : symbols[1]
         }
-        
-        for (let j = 0; j < series.length; j++) {   
+
+        for (let j = 0; j < series.length; j++) {
             let currentColor = colors[j % colors.length]
             let y0 = Math.round (series[j][0] * ratio) - min2
             result[rows - y0][offset - 1] = colored(symbols[0], currentColor) // first value
