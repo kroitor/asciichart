@@ -2,6 +2,8 @@
 
 (function (exports) {
 
+    // color indices
+
     exports.black = 0
     exports.red = 1,
     exports.green = 2
@@ -19,6 +21,9 @@
     exports.lightmagenta = 65
     exports.lightcyan = 66
     exports.white = 67
+
+    // control sequences for coloring
+
     exports.escape = "\x1b["
     exports.end = "m"
     exports.reset = exports.escape + "0" + exports.end
