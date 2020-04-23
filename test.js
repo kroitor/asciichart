@@ -27,7 +27,7 @@ var config = {
 var s = []
 for (var i = 0; i < width; i++)
     s[i] = 15 * Math.cos (i * ((Math.PI * 8) / width)) // values range from -15 to +15
-console.log (asciichart.plot (s, config))     // this rescales the graph to ±3 lines
+console.log (asciichart.plot (s, config)) // this rescales the graph to ±3 lines
 
 console.log (line)
 console.log ("auto-range\n")
@@ -51,63 +51,74 @@ console.log (line)
 console.log ("multiple disjoint array test\n")
 
 
-var arr1 = new Array(width)
+var arr1 = new Array (width)
 for (var i = 0; i < arr1.length; i++)
-    arr1[i] = 5 * Math.sin(i * ((Math.PI * 4) / arr1.length))
+    arr1[i] = 5 * Math.sin (i * ((Math.PI * 4) / arr1.length))
 
-var arr2 = new Array(width)
+var arr2 = new Array (width)
 for (var i = 0; i < arr2.length; i++)
     arr2[i] = arr1[i] + 2
-    
-console.log(asciichart.plot([arr1, arr2]))
 
+console.log (asciichart.plot ([ arr1, arr2 ]))
 
 // test multiple
 console.log (line)
 console.log ("multiple intersecting arrays test\n")
 
-
-var arr1 = new Array(width)
+var arr1 = new Array (width)
 for (var i = 0; i < arr1.length; i++)
-    arr1[i] = 5 * Math.sin(i * ((Math.PI * 4) / arr1.length))
+    arr1[i] = 5 * Math.sin (i * ((Math.PI * 4) / arr1.length))
 
-var arr2 = new Array(width)
+var arr2 = new Array (width)
 for (var i = 0; i < arr2.length; i++)
-    arr2[i] = 5 *  Math.sin(Math.PI + i * ((Math.PI * 4) / arr2.length))
+    arr2[i] = 5 *  Math.sin (Math.PI + i * ((Math.PI * 4) / arr2.length))
 
-    
-console.log(asciichart.plot([arr1, arr2]))
+
+console.log (asciichart.plot ([ arr1, arr2 ]))
 
 // test multiple colored
-console.log(line)
-console.log("multiple intersecting arrays with colors test\n")
+console.log (line)
+console.log ("multiple intersecting arrays with colors test\n")
 
-var arr1 = new Array(width)
+var arr1 = new Array (width)
 for (var i = 0; i < arr1.length; i++)
-    arr1[i] = 5 * Math.sin(i * ((Math.PI * 4) / arr1.length))
+    arr1[i] = 5 * Math.sin (i * ((Math.PI * 4) / arr1.length))
 
-var arr2 = new Array(width)
+var arr2 = new Array (width)
 for (var i = 0; i < arr2.length; i++)
-    arr2[i] = 5 * Math.sin(Math.PI + i * ((Math.PI * 4) / arr2.length))
+    arr2[i] = 5 * Math.sin (Math.PI + i * ((Math.PI * 4) / arr2.length))
 
-var arr3 = new Array(width)
+var arr3 = new Array (width)
 for (var i = 0; i < arr3.length; i++)
     arr3[i] = 5 - i * 0.2
 
-var arr4 = new Array(width)
+var arr4 = new Array (width)
 for (var i = 0; i < arr4.length; i++)
-    arr4[i] = 10 + 5 * Math.cos(i * ((Math.PI * 4) / arr1.length))
+    arr4[i] = 10 + 5 * Math.cos (i * ((Math.PI * 4) / arr1.length))
 
 var config = {
-    colors: [asciichart.colors.FG.Blue, asciichart.colors.FG.Green, asciichart.colors.FG.Magenta, asciichart.colors.FG.Red]
+    colors: [
+        asciichart.blue,
+        asciichart.green,
+        asciichart.magenta,
+        asciichart.red
+    ]
 }
-console.log(asciichart.plot([arr1, arr2, arr3, arr4], config))
+
+var series = [ arr1, arr2, arr3, arr4 ]
+
+console.log (asciichart.plot (series, config))
 
 // test multiple colored background
-console.log(line)
-console.log("multiple intersecting arrays with colors test\n")
+console.log (line)
+console.log ("multiple intersecting arrays with colors test\n")
 
 var config = {
-    colors: [asciichart.colors.BG.Blue, asciichart.colors.BG.Green, asciichart.colors.BG.Magenta, asciichart.colors.BG.Red]
+    colors: [
+        [ asciichart.default, asciichart.lightblue ],
+        [ undefined, asciichart.white ],
+        [ asciichart.lightgreen, undefined ],
+        [ asciichart.red, asciichart.default ]
+    ],
 }
-console.log(asciichart.plot([arr1, arr2, arr3, arr4], config))
+console.log (asciichart.plot (series, config))
