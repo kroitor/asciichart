@@ -83,7 +83,6 @@ console.log (asciichart.plot (s, { height: 6 }))     // this rescales the graph 
 
 <img width="787" alt="Console ASCII Line charts in pure Javascript (for NodeJS and browsers)" src="https://cloud.githubusercontent.com/assets/1294454/22825525/dd295294-ef9e-11e6-93d1-0beb80b93133.png">
 
-
 ### Auto-range
 
 ```javascript
@@ -96,7 +95,7 @@ console.log (asciichart.plot (s2))
 
 <img width="788" alt="Console ASCII Line charts in pure Javascript (for NodeJS and browsers)" src="https://cloud.githubusercontent.com/assets/1294454/22818710/9f157a74-ef7f-11e6-893a-f7494b5abef1.png">
 
-### Multiple Series Plotting
+### Multiple Series
 
 ```javascript
 var s2 = new Array (120)
@@ -109,40 +108,59 @@ s3[0] = Math.round (Math.random () * 15)
 for (i = 1; i < s3.length; i++)
     s3[i] = s3[i - 1] + Math.round (Math.random () * (Math.random () > 0.5 ? 2 : -2))
 
-console.log (asciichart.plot ([s2, s3]))
+console.log (asciichart.plot ([ s2, s3 ]))
 ```
 
 <img width="788" alt="Console ASCII Line charts in pure Javascript (for NodeJS and browsers)" src="https://user-images.githubusercontent.com/27967284/79398277-5322da80-7f91-11ea-8da8-e47976b76c12.png">
 
-### Multiple Series Plotting (Coloring)
+### Colors
 
 ```javascript
-var arr1 = new Array(120)
-arr1[0] = Math.round(Math.random() * 15)
+var arr1 = new Array (120)
+arr1[0] = Math.round (Math.random () * 15)
 for (i = 1; i < arr1.length; i++)
-    arr1[i] = arr1[i - 1] + Math.round(Math.random() * (Math.random() > 0.5 ? 2 : -2))
+    arr1[i] = arr1[i - 1] + Math.round (Math.random () * (Math.random () > 0.5 ? 2 : -2))
 
-var arr2 = new Array(120)
-arr2[0] = Math.round(Math.random() * 15)
+var arr2 = new Array (120)
+arr2[0] = Math.round (Math.random () * 15)
 for (i = 1; i < arr2.length; i++)
-    arr2[i] = arr2[i - 1] + Math.round(Math.random() * (Math.random() > 0.5 ? 2 : -2))
+    arr2[i] = arr2[i - 1] + Math.round (Math.random () * (Math.random () > 0.5 ? 2 : -2))
 
-var arr3 = new Array(120)
-arr3[0] = Math.round(Math.random() * 15)
+var arr3 = new Array (120)
+arr3[0] = Math.round (Math.random () * 15)
 for (i = 1; i < arr3.length; i++)
-    arr3[i] = arr3[i - 1] + Math.round(Math.random() * (Math.random() > 0.5 ? 2 : -2))
+    arr3[i] = arr3[i - 1] + Math.round (Math.random () * (Math.random () > 0.5 ? 2 : -2))
 
-var arr4 = new Array(120)
-arr4[0] = Math.round(Math.random() * 15)
+var arr4 = new Array (120)
+arr4[0] = Math.round (Math.random () * 15)
 for (i = 1; i < arr4.length; i++)
-    arr4[i] = arr4[i - 1] + Math.round(Math.random() * (Math.random() > 0.5 ? 2 : -2))
+    arr4[i] = arr4[i - 1] + Math.round (Math.random () * (Math.random () > 0.5 ? 2 : -2))
 
 var config = {
-    colors: [asciichart.colors.FG.Blue, asciichart.colors.FG.Green,
-    asciichart.colors.FG.Magenta, asciichart.colors.FG.Red]
+    colors: [
+        asciichart.blue,
+        asciichart.green,
+        asciichart.default, // default color
+        undefined, // equivalent to default
+    ]
 }
 
-console.log(asciichart.plot([arr1, arr2, arr3, arr4], config))
+console.log (asciichart.plot([ arr1, arr2, arr3, arr4 ], config))
+```
+
+### Foreground / Background
+
+```JavaScript
+var config = {
+    colors: [
+        [ asciichart.blue, asciichart.default ], // foreground, default
+        [ asciichart.green, asciichart.darkgray ], // foreground, background
+        [ undefined, asciichart.red ], // default foreground color
+        [ asciichart.magenta, undefined ], // default background color
+    ]
+}
+
+console.log (asciichart.plot([ arr1, arr2, arr3, arr4 ], config))
 ```
 
 <img width="788" alt="Console ASCII Line charts in pure Javascript (for NodeJS and browsers)" src="https://user-images.githubusercontent.com/27967284/79398700-51a5e200-7f92-11ea-9048-8dbdeeb60830.png">
@@ -150,7 +168,7 @@ console.log(asciichart.plot([arr1, arr2, arr3, arr4], config))
 ### See Also
 
 A util by [madnight](https://github.com/madnight) for drawing Bitcoin/Ether/altcoin charts in command-line console: [bitcoin-chart-cli](https://github.com/madnight/bitcoin-chart-cli).
-  
+
 ![bitcoin-chart-cli](https://camo.githubusercontent.com/494806efd925c4cd56d8370c1d4e8b751812030a/68747470733a2f2f692e696d6775722e636f6d2f635474467879362e706e67)
 
 ### Ports
