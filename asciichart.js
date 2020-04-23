@@ -1,17 +1,23 @@
 "use strict";
 
-function colored(char, clr) {
-    var colors = require('./colors')
-    clr = clr === undefined ? colors.Reset : clr
-    return clr + char + colors.Reset
-}
-
 (function (exports) {
-    exports.Colors = require('./colors')
+    
+    let colors = require ('./colors')
+
+    function colored (char, color) {
+        // do not color it if color is not specified
+        let openingColor = (color === undefined) ? '' : color
+        let closingColor = (color === undefined) ? '' : colors.Reset
+        return openingColor + char + closingColor
+    }
+    
+    exports.colors = colors
+    exports.colored = colored
 
     exports.plot = function (series, cfg = undefined) {
-        // Function takes oth one array and array of arrays.
-        // if user passes array of numbers we transform it to array of 1 array containing numbers
+        // this function takes oth one array and array of arrays
+        // if an array of numbers is passed it is transfored to 
+        // an array of exactly one array with numbers
         if (typeof(series[0]) == "number"){
             series = [series]
         }
@@ -38,8 +44,9 @@ function colored(char, clr) {
         let max2    = Math.round (max * ratio)
         let rows    = Math.abs (max2 - min2)
         let width = 0
-        for (let i = 0; i < series.length; i++)
+        for (let i = 0; i < series.length; i++) {
             width = Math.max(width, series[i].length)
+        }
         width = width + offset
         let symbols = (typeof cfg.symbols !== 'undefined') ? cfg.symbols : defaultSymbols
         let format  = (typeof cfg.format !== 'undefined') ? cfg.format : function (x) {
@@ -75,7 +82,7 @@ function colored(char, clr) {
                     let from = Math.min (y0, y1)
                     let to = Math.max (y0, y1)
                     for (let y = from + 1; y < to; y++) {
-                        result[rows - y][x + offset] = colored( symbols[9], currentColor)
+                        result[rows - y][x + offset] = colored(symbols[9], currentColor)
                     }
                 }
             }
