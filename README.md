@@ -174,7 +174,6 @@ Special thx to all who helped port it to other languages, great stuff!
 
 ### Future work (coming soon, hopefully)
 
-- multi-line colored charts in console!
 - levels and points on the graph!
 - even better value formatting and auto-scaling!
 
