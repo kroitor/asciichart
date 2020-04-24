@@ -148,21 +148,6 @@ var config = {
 console.log (asciichart.plot([ arr1, arr2, arr3, arr4 ], config))
 ```
 
-### Foreground / Background
-
-```JavaScript
-var config = {
-    colors: [
-        [ asciichart.blue, asciichart.default ], // foreground, default
-        [ asciichart.green, asciichart.darkgray ], // foreground, background
-        [ undefined, asciichart.red ], // default foreground color
-        [ asciichart.magenta, undefined ], // default background color
-    ]
-}
-
-console.log (asciichart.plot([ arr1, arr2, arr3, arr4 ], config))
-```
-
 <img width="788" alt="Console ASCII Line charts in pure Javascript (for NodeJS and browsers)" src="https://user-images.githubusercontent.com/27967284/79398700-51a5e200-7f92-11ea-9048-8dbdeeb60830.png">
 
 ### See Also

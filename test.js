@@ -108,17 +108,3 @@ var config = {
 var series = [ arr1, arr2, arr3, arr4 ]
 
 console.log (asciichart.plot (series, config))
-
-// test multiple colored background
-console.log (line)
-console.log ("multiple intersecting arrays with colors test\n")
-
-var config = {
-    colors: [
-        [ asciichart.default, asciichart.lightblue ],
-        [ undefined, asciichart.white ],
-        [ asciichart.lightgreen, undefined ],
-        [ asciichart.red, asciichart.default ]
-    ],
-}
-console.log (asciichart.plot (series, config))

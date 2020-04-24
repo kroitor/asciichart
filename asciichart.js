@@ -2,46 +2,30 @@
 
 (function (exports) {
 
-    // color indices
-
-    exports.black = 0
-    exports.red = 1,
-    exports.green = 2
-    exports.yellow = 3
-    exports.blue = 4
-    exports.magenta = 5
-    exports.cyan = 6
-    exports.lightgray = 7
-    exports.default = 9
-    exports.darkgray = 60
-    exports.lightred = 61
-    exports.lightgreen = 62
-    exports.lightyellow = 63
-    exports.lightblue = 64
-    exports.lightmagenta = 65
-    exports.lightcyan = 66
-    exports.white = 67
-
     // control sequences for coloring
 
-    exports.escape = "\x1b["
-    exports.end = "m"
-    exports.reset = exports.escape + "0" + exports.end
+    exports.black = "\x1b[30m"
+    exports.red = "\x1b[31m"
+    exports.green = "\x1b[32m"
+    exports.yellow = "\x1b[33m"
+    exports.blue = "\x1b[34m"
+    exports.magenta = "\x1b[35m"
+    exports.cyan = "\x1b[36m"
+    exports.lightgray = "\x1b[37m"
+    exports.default = "\x1b[39m"
+    exports.darkgray = "\x1b[90m"
+    exports.lightred = "\x1b[91m"
+    exports.lightgreen = "\x1b[92m"
+    exports.lightyellow = "\x1b[93m"
+    exports.lightblue = "\x1b[94m"
+    exports.lightmagenta = "\x1b[95m"
+    exports.lightcyan = "\x1b[96m"
+    exports.white = "\x1b[97m"
+    exports.reset = "\x1b[0m"
 
     function colored (char, color) {
         // do not color it if color is not specified
-        if (color === undefined) {
-            return char;
-        } else if (Array.isArray (color)) {
-            let foreground = 30 + ((color[0] === undefined) ? exports.default : color[0])
-            let background = 40 + ((color[1] === undefined) ? exports.default : color[1])
-            foreground = foreground.toString ()
-            background = background.toString ()
-            return exports.escape + foreground + ';' + background + exports.end + char + exports.reset
-        } else {
-            let foreground = (30 + color).toString ()
-            return exports.escape + foreground + exports.end + char + exports.reset
-        }
+        return (color === undefined) ? char : (color + char + exports.reset)
     }
 
     exports.colored = colored
