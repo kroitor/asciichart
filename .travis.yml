@@ -1,6 +1,8 @@
+os: linux
+dist: focal
 language: python
 python:
-  - "3.6"
+  - "3.8"
 cache:
   directories:
     - $HOME/.cache/pip
@@ -12,11 +14,8 @@ before_install:
 - nvm install stable
 - nvm use stable
 - npm install
-- sudo apt-get install python3-pip
 - python3 --version
 - pip3 --version
-- sudo -H pip3 install --upgrade setuptools pip wheel
-# - sudo -H pip3 install --upgrade tox twine
 script:
   - npm run lint
   - npm run lint-test
