@@ -16,9 +16,12 @@ before_install:
 - npm install
 - python3 --version
 - pip3 --version
+install: pip install flake8 pytest
 script:
   - npm run lint
   - npm run lint-test
   - npm test
 #  - tox -e qa
+  - flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+  - pytest --doctest-modules
 after_success: npm run coverage
