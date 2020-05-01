@@ -27,7 +27,7 @@ def plot(series, cfg=None):
     NaN.
 
         >>> series = [1,2,3,4,float("nan"),4,3,2,1]
-        >>> print(asciichartpy.plot(series))
+        >>> print(plot(series))
         4.00  ┤  ╭╴╶╮
         3.00  ┤ ╭╯  ╰╮
         2.00  ┤╭╯    ╰╮
@@ -37,19 +37,19 @@ def plot(series, cfg=None):
     of the chart. `minimum` and `maximum` will clamp the y-axis and all values:
 
         >>> series = [1,2,3,4,float("nan"),4,3,2,1]
-        >>> print(asciichartpy.plot(series, {'minimum': 0}))
+        >>> print(plot(series, {'minimum': 0}))
         4.00  ┼  ╭╴╶╮
         3.00  ┤ ╭╯  ╰╮
         2.00  ┤╭╯    ╰╮
         1.00  ┼╯      ╰
         0.00  ┤
 
-        >>> print(asciichartpy.plot(series, {'minimum': 2}))
+        >>> print(plot(series, {'minimum': 2}))
         4.00  ┤  ╭╴╶╮
         3.00  ┤ ╭╯  ╰╮
         2.00  ┼─╯    ╰─
 
-        >>> print(asciichartpy.plot(series, {'minimum': 2, 'maximum': 3}))
+        >>> print(plot(series, {'minimum': 2, 'maximum': 3}))
         3.00  ┤ ╭─╴╶─╮
         2.00  ┼─╯    ╰─
 
@@ -57,7 +57,7 @@ def plot(series, cfg=None):
     used to scale down a graph with large data values:
 
         >>> series = [10,20,30,40,50,40,30,20,10]
-        >>> print(asciichartpy.plot(series, {'height': 4}))
+        >>> print(plot(series, {'height': 4}))
         50.00  ┤   ╭╮
         40.00  ┤  ╭╯╰╮
         30.00  ┤ ╭╯  ╰╮
@@ -69,7 +69,7 @@ def plot(series, cfg=None):
     decimal point:
 
         >>> series = [10,20,30,40,50,40,30,20,10]
-        >>> print(asciichartpy.plot(series, {'height': 4, 'format':'{:8.0f} '}))
+        >>> print(plot(series, {'height': 4, 'format':'{:8.0f} '}))
         40  ┼  ╭╮
         30  ┤  │╰╮
         20  ┤ ╭╯ │
