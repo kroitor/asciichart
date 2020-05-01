@@ -70,11 +70,11 @@ def plot(series, cfg=None):
 
         >>> series = [10,20,30,40,50,40,30,20,10]
         >>> print(plot(series, {'height': 4, 'format':'{:8.0f}'}))
-          50 ┤   ╭╮
-          40 ┤  ╭╯╰╮
-          30 ┤ ╭╯  ╰╮
-          20 ┤╭╯    ╰╮
-          10 ┼╯      ╰
+              50 ┤   ╭╮
+              40 ┤  ╭╯╰╮
+              30 ┤ ╭╯  ╰╮
+              20 ┤╭╯    ╰╮
+              10 ┼╯      ╰
 	"""
     if len(series) == 0 or all(isnan(n) for n in series):
         return ''
