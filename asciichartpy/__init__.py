@@ -58,11 +58,11 @@ def plot(series, cfg=None):
 
         >>> series = [10,20,30,40,50,40,30,20,10]
         >>> print(plot(series, {'height': 4}))
-            50.00  ┤   ╭╮
-            40.00  ┤  ╭╯╰╮
-            30.00  ┤ ╭╯  ╰╮
-            20.00  ┤╭╯    ╰╮
-            10.00  ┼╯      ╰
+           50.00  ┤   ╭╮
+           40.00  ┤  ╭╯╰╮
+           30.00  ┤ ╭╯  ╰╮
+           20.00  ┤╭╯    ╰╮
+           10.00  ┼╯      ╰
 
     `format` specifies a Python format string used to format the labels on the
     y-axis. The default value is "{:8.2f} ". This can be used to remove the
