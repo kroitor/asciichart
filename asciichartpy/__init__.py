@@ -69,7 +69,7 @@ def plot(series, cfg=None):
     decimal point:
 
         >>> series = [10,20,30,40,50,40,30,20,10]
-        >>> print(plot(series, {'height': 4, 'format':'{:8.0f} '}))
+        >>> print(plot(series, {'height': 4, 'format':'  {:8.0f}'}))
             50 ┤   ╭╮
             40 ┤  ╭╯╰╮
             30 ┤ ╭╯  ╰╮
