@@ -100,7 +100,7 @@ def plot(series, cfg=None):
         return min(max(n, minimum), maximum)
 
     def scaled(y):
-         return int(round(clamp(y) * ratio) - min2)
+        return int(round(clamp(y) * ratio) - min2)
 
     rows = max2 - min2
     width = len(series) + offset
