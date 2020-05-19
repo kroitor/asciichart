@@ -79,7 +79,7 @@ def plot(series, cfg=None):
     if len(series) == 0:
         return ''
 
-    if isinstance(series[0], int):
+    if not isinstance(series[0], list):
         if all(isnan(n) for n in series):
             return ''
         else:
