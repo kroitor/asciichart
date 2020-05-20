@@ -33,6 +33,15 @@ def plot(series, cfg=None):
             2.00  ┤╭╯    ╰╮
             1.00  ┼╯      ╰
 
+    `series` can also be a list of lists to support multiple data series.
+
+        >>> series = [[10,20,30,40,30,20,10], [40,30,20,10,20,30,40]]
+        >>> print(plot(series, {'height': 3}))
+           40.00  ┤╮ ╭╮ ╭
+           30.00  ┤╰╮╯╰╭╯
+           20.00  ┤╭╰╮╭╯╮
+           10.00  ┼╯ ╰╯ ╰
+
     `cfg` is an optional dictionary of various parameters to tune the appearance
     of the chart. `minimum` and `maximum` will clamp the y-axis and all values:
 
@@ -75,7 +84,7 @@ def plot(series, cfg=None):
               30 ┤ ╭╯  ╰╮
               20 ┤╭╯    ╰╮
               10 ┼╯      ╰
-	"""
+    """
     if len(series) == 0:
         return ''
 
@@ -86,13 +95,9 @@ def plot(series, cfg=None):
             series = [series]
 
     cfg = cfg or {}
-    minimum = cfg.get('minimum', 0)
-    maximum = cfg.get('maximum', 0)
 
-    for i in range(0, len(series)):
-        for j in range(0, len(series[i])):
-            minimum = min(minimum, series[i][j])
-            maximum = max(maximum, series[i][j])
+    minimum = cfg.get('minimum', min(filter(_isnum, [j for i in series for j in i])))
+    maximum = cfg.get('maximum', max(filter(_isnum, [j for i in series for j in i])))
 
     default_symbols = ['┼', '┤', '╶', '╴', '─', '╰', '╭', '╮', '╯', '│']
     symbols = cfg.get('symbols', default_symbols)
