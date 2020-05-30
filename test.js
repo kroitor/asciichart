@@ -30,6 +30,13 @@ for (var i = 0; i < width; i++)
 console.log (asciichart.plot (s, config)) // this rescales the graph to ±3 lines
 
 console.log (line)
+console.log ("\configuring y-axis bounds and symbols\n")
+config.min = -20;
+config.max = 20;
+config.symbols = [ '┣', '┣', '╶', '╴', '─', '╰', '╭', '╮', '╯', '│' ];
+console.log (asciichart.plot (s, config));
+
+console.log (line)
 console.log ("auto-range\n")
 
 var s2 = new Array (width)
