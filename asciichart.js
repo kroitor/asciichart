@@ -38,8 +38,10 @@
             series = [series]
         }
 
-        let min = series[0][0]
-        let max = series[0][0]
+        cfg = (typeof cfg !== 'undefined') ? cfg : {}
+
+        let min = (typeof cfg.min !== 'undefined') ? cfg.min : series[0][0]
+        let max = (typeof cfg.max !== 'undefined') ? cfg.max : series[0][0]
 
         for (let j = 0; j < series.length; j++) {
             for (let i = 0; i < series[j].length; i++) {
@@ -50,7 +52,6 @@
 
         let defaultSymbols = [ '┼', '┤', '╶', '╴', '─', '╰', '╭', '╮', '╯', '│' ]
         let range   = Math.abs (max - min)
-        cfg         = (typeof cfg !== 'undefined') ? cfg : {}
         let offset  = (typeof cfg.offset  !== 'undefined') ? cfg.offset  : 3
         let padding = (typeof cfg.padding !== 'undefined') ? cfg.padding : '           '
         let height  = (typeof cfg.height  !== 'undefined') ? cfg.height  : range
