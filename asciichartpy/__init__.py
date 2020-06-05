@@ -33,23 +33,32 @@ def plot(series, cfg=None):
             2.00  ┤╭╯    ╰╮
             1.00  ┼╯      ╰
 
+    `series` can also be a list of lists to support multiple data series.
+
+        >>> series = [[10,20,30,40,30,20,10], [40,30,20,10,20,30,40]]
+        >>> print(plot(series, {'height': 3}))
+           40.00  ┤╮ ╭╮ ╭
+           30.00  ┤╰╮╯╰╭╯
+           20.00  ┤╭╰╮╭╯╮
+           10.00  ┼╯ ╰╯ ╰
+
     `cfg` is an optional dictionary of various parameters to tune the appearance
-    of the chart. `minimum` and `maximum` will clamp the y-axis and all values:
+    of the chart. `min` and `max` will clamp the y-axis and all values:
 
         >>> series = [1,2,3,4,float("nan"),4,3,2,1]
-        >>> print(plot(series, {'minimum': 0}))
+        >>> print(plot(series, {'min': 0}))
             4.00  ┼  ╭╴╶╮
             3.00  ┤ ╭╯  ╰╮
             2.00  ┤╭╯    ╰╮
             1.00  ┼╯      ╰
             0.00  ┤
 
-        >>> print(plot(series, {'minimum': 2}))
+        >>> print(plot(series, {'min': 2}))
             4.00  ┤  ╭╴╶╮
             3.00  ┤ ╭╯  ╰╮
             2.00  ┼─╯    ╰─
 
-        >>> print(plot(series, {'minimum': 2, 'maximum': 3}))
+        >>> print(plot(series, {'min': 2, 'max': 3}))
             3.00  ┤ ╭─╴╶─╮
             2.00  ┼─╯    ╰─
 
@@ -75,18 +84,26 @@ def plot(series, cfg=None):
               30 ┤ ╭╯  ╰╮
               20 ┤╭╯    ╰╮
               10 ┼╯      ╰
-	"""
-    if len(series) == 0 or all(isnan(n) for n in series):
+    """
+    if len(series) == 0:
         return ''
 
+    if not isinstance(series[0], list):
+        if all(isnan(n) for n in series):
+            return ''
+        else:
+            series = [series]
+
     cfg = cfg or {}
-    minimum = cfg.get('minimum', min(filter(_isnum, series)))
-    maximum = cfg.get('maximum', max(filter(_isnum, series)))
+
+    minimum = cfg.get('min', min(filter(_isnum, [j for i in series for j in i])))
+    maximum = cfg.get('max', max(filter(_isnum, [j for i in series for j in i])))
+
     default_symbols = ['┼', '┤', '╶', '╴', '─', '╰', '╭', '╮', '╯', '│']
     symbols = cfg.get('symbols', default_symbols)
 
     if minimum > maximum:
-        raise ValueError('The minimum value cannot exceed the maximum value.')
+        raise ValueError('The min value cannot exceed the max value.')
 
     interval = maximum - minimum
     offset = cfg.get('offset', 3)
@@ -103,7 +120,12 @@ def plot(series, cfg=None):
         return int(round(clamp(y) * ratio) - min2)
 
     rows = max2 - min2
-    width = len(series) + offset
+
+    width = 0
+    for i in range(0, len(series)):
+        width = max(width, len(series[i]))
+    width += offset
+
     placeholder = cfg.get('format', '{:8.2f} ')
 
     result = [[' '] * width for i in range(rows + 1)]
@@ -115,38 +137,40 @@ def plot(series, cfg=None):
         result[y - min2][offset - 1] = symbols[0] if y == 0 else symbols[1]  # zero tick mark
 
     # first value is a tick mark across the y-axis
-    d0 = series[0]
+    d0 = series[0][0]
     if _isnum(d0):
         result[rows - scaled(d0)][offset - 1] = symbols[0]
 
-    # plot the line
-    for x in range(len(series) - 1):
-        d0 = series[x + 0]
-        d1 = series[x + 1]
+    for i in range(0, len(series)):
 
-        if isnan(d0) and isnan(d1):
-            continue
+        # plot the line
+        for x in range(0, len(series[i]) - 1):
+            d0 = series[i][x + 0]
+            d1 = series[i][x + 1]
 
-        if isnan(d0) and _isnum(d1):
-            result[rows - scaled(d1)][x + offset] = symbols[2]
-            continue
+            if isnan(d0) and isnan(d1):
+                continue
 
-        if _isnum(d0) and isnan(d1):
-            result[rows - scaled(d0)][x + offset] = symbols[3]
-            continue
+            if isnan(d0) and _isnum(d1):
+                result[rows - scaled(d1)][x + offset] = symbols[2]
+                continue
 
-        y0 = scaled(d0)
-        y1 = scaled(d1)
-        if y0 == y1:
-            result[rows - y0][x + offset] = symbols[4]
-            continue
+            if _isnum(d0) and isnan(d1):
+                result[rows - scaled(d0)][x + offset] = symbols[3]
+                continue
 
-        result[rows - y1][x + offset] = symbols[5] if y0 > y1 else symbols[6]
-        result[rows - y0][x + offset] = symbols[7] if y0 > y1 else symbols[8]
+            y0 = scaled(d0)
+            y1 = scaled(d1)
+            if y0 == y1:
+                result[rows - y0][x + offset] = symbols[4]
+                continue
 
-        start = min(y0, y1) + 1
-        end = max(y0, y1)
-        for y in range(start, end):
-            result[rows - y][x + offset] = symbols[9]
+            result[rows - y1][x + offset] = symbols[5] if y0 > y1 else symbols[6]
+            result[rows - y0][x + offset] = symbols[7] if y0 > y1 else symbols[8]
+
+            start = min(y0, y1) + 1
+            end = max(y0, y1)
+            for y in range(start, end):
+                result[rows - y][x + offset] = symbols[9]
 
     return '\n'.join([''.join(row).rstrip() for row in result])
