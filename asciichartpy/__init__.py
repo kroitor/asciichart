@@ -43,22 +43,22 @@ def plot(series, cfg=None):
            10.00  ┼╯ ╰╯ ╰
 
     `cfg` is an optional dictionary of various parameters to tune the appearance
-    of the chart. `minimum` and `maximum` will clamp the y-axis and all values:
+    of the chart. `min` and `max` will clamp the y-axis and all values:
 
         >>> series = [1,2,3,4,float("nan"),4,3,2,1]
-        >>> print(plot(series, {'minimum': 0}))
+        >>> print(plot(series, {'min': 0}))
             4.00  ┼  ╭╴╶╮
             3.00  ┤ ╭╯  ╰╮
             2.00  ┤╭╯    ╰╮
             1.00  ┼╯      ╰
             0.00  ┤
 
-        >>> print(plot(series, {'minimum': 2}))
+        >>> print(plot(series, {'min': 2}))
             4.00  ┤  ╭╴╶╮
             3.00  ┤ ╭╯  ╰╮
             2.00  ┼─╯    ╰─
 
-        >>> print(plot(series, {'minimum': 2, 'maximum': 3}))
+        >>> print(plot(series, {'min': 2, 'max': 3}))
             3.00  ┤ ╭─╴╶─╮
             2.00  ┼─╯    ╰─
 
@@ -96,14 +96,14 @@ def plot(series, cfg=None):
 
     cfg = cfg or {}
 
-    minimum = cfg.get('minimum', min(filter(_isnum, [j for i in series for j in i])))
-    maximum = cfg.get('maximum', max(filter(_isnum, [j for i in series for j in i])))
+    minimum = cfg.get('min', min(filter(_isnum, [j for i in series for j in i])))
+    maximum = cfg.get('max', max(filter(_isnum, [j for i in series for j in i])))
 
     default_symbols = ['┼', '┤', '╶', '╴', '─', '╰', '╭', '╮', '╯', '│']
     symbols = cfg.get('symbols', default_symbols)
 
     if minimum > maximum:
-        raise ValueError('The minimum value cannot exceed the maximum value.')
+        raise ValueError('The min value cannot exceed the max value.')
 
     interval = maximum - minimum
     offset = cfg.get('offset', 3)
