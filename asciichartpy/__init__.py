@@ -173,4 +173,4 @@ def plot(series, cfg=None):
             for y in range(start, end):
                 result[rows - y][x + offset] = symbols[9]
 
-    return '\n'.join([''.join(row).rstrip() for row in result])
+    return '\n'.join([''.join(row) for row in result])
