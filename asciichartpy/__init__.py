@@ -9,6 +9,27 @@ options to tune the output.
 from __future__ import division
 from math import ceil, floor, isnan
 
+
+black = "\033[30m"
+red = "\033[31m"
+green = "\033[32m"
+yellow = "\033[33m"
+blue = "\033[34m"
+magenta = "\033[35m"
+cyan = "\033[36m"
+lightgray = "\033[37m"
+default = "\033[39m"
+darkgray = "\033[90m"
+lightred = "\033[91m"
+lightgreen = "\033[92m"
+lightyellow = "\033[93m"
+lightblue = "\033[94m"
+lightmagenta = "\033[95m"
+lightcyan = "\033[96m"
+white = "\033[97m"
+reset = "\033[0m"
+
+
 __all__ = ['plot']
 
 # Python 3.2 has math.isfinite, which could have been used, but to support older
@@ -17,6 +38,9 @@ __all__ = ['plot']
 # help with readability.
 def _isnum(n):
     return not isnan(n)
+
+def colored(char, color):
+    return color + char + reset
 
 def plot(series, cfg=None):
     """Generate an ascii chart for a series of numbers.
@@ -96,6 +120,8 @@ def plot(series, cfg=None):
 
     cfg = cfg or {}
 
+    colors = cfg.get('colors', [reset])
+
     minimum = cfg.get('min', min(filter(_isnum, [j for i in series for j in i])))
     maximum = cfg.get('max', max(filter(_isnum, [j for i in series for j in i])))
 
@@ -139,9 +165,11 @@ def plot(series, cfg=None):
     # first value is a tick mark across the y-axis
     d0 = series[0][0]
     if _isnum(d0):
-        result[rows - scaled(d0)][offset - 1] = symbols[0]
+        result[rows - scaled(d0)][offset - 1] = colored(symbols[0], black)
 
     for i in range(0, len(series)):
+
+        currentcolor = colors[i % len(colors)]
 
         # plot the line
         for x in range(0, len(series[i]) - 1):
@@ -152,25 +180,25 @@ def plot(series, cfg=None):
                 continue
 
             if isnan(d0) and _isnum(d1):
-                result[rows - scaled(d1)][x + offset] = symbols[2]
+                result[rows - scaled(d1)][x + offset] = colored(symbols[2], currentcolor)
                 continue
 
             if _isnum(d0) and isnan(d1):
-                result[rows - scaled(d0)][x + offset] = symbols[3]
+                result[rows - scaled(d0)][x + offset] = colored(symbols[3], currentcolor)
                 continue
 
             y0 = scaled(d0)
             y1 = scaled(d1)
             if y0 == y1:
-                result[rows - y0][x + offset] = symbols[4]
+                result[rows - y0][x + offset] = colored(symbols[4], currentcolor)
                 continue
 
-            result[rows - y1][x + offset] = symbols[5] if y0 > y1 else symbols[6]
-            result[rows - y0][x + offset] = symbols[7] if y0 > y1 else symbols[8]
+            result[rows - y1][x + offset] = colored(symbols[5], currentcolor) if y0 > y1 else colored(symbols[6], currentcolor)
+            result[rows - y0][x + offset] = colored(symbols[7], currentcolor) if y0 > y1 else colored(symbols[8], currentcolor)
 
             start = min(y0, y1) + 1
             end = max(y0, y1)
             for y in range(start, end):
-                result[rows - y][x + offset] = symbols[9]
+                result[rows - y][x + offset] = colored(symbols[9], currentcolor)
 
     return '\n'.join([''.join(row).rstrip() for row in result])
