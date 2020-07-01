@@ -40,7 +40,10 @@ def _isnum(n):
     return not isnan(n)
 
 def colored(char, color):
-    return color + char + reset
+	if not color:
+		return char
+	else:
+	    return color + char + reset
 
 def plot(series, cfg=None):
     """Generate an ascii chart for a series of numbers.
@@ -120,7 +123,7 @@ def plot(series, cfg=None):
 
     cfg = cfg or {}
 
-    colors = cfg.get('colors', [reset])
+    colors = cfg.get('colors', [None])
 
     minimum = cfg.get('min', min(filter(_isnum, [j for i in series for j in i])))
     maximum = cfg.get('max', max(filter(_isnum, [j for i in series for j in i])))
@@ -165,7 +168,7 @@ def plot(series, cfg=None):
     # first value is a tick mark across the y-axis
     d0 = series[0][0]
     if _isnum(d0):
-        result[rows - scaled(d0)][offset - 1] = colored(symbols[0], black)
+        result[rows - scaled(d0)][offset - 1] = symbols[0]
 
     for i in range(0, len(series)):
 
