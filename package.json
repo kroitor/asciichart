@@ -10,10 +10,12 @@
   "dependencies": {},
   "devDependencies": {
     "coveralls": "^3.1.0",
-    "esdoc": "^1.1.0",
     "esdoc-node": "^1.0.5",
     "eslint": "^7.5.0",
     "istanbul": "^0.4.5",
+    "lodash": "^4.17.19",
+    "marked": "^1.1.1",
+    "minimist": "^1.2.5",
     "mocha": "^8.0.1",
     "nyc": "^15.1.0"
   },
