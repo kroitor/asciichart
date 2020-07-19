@@ -11,11 +11,11 @@
   "devDependencies": {
     "coveralls": "^3.1.0",
     "esdoc": "^1.1.0",
-    "esdoc-node": "^1.0.2",
-    "eslint": "^4.2.0",
+    "esdoc-node": "^1.0.5",
+    "eslint": "^7.5.0",
     "istanbul": "^0.4.5",
-    "mocha": "^7.1.2",
-    "nyc": "^15.0.1"
+    "mocha": "^8.0.1",
+    "nyc": "^15.1.0"
   },
   "author": {
     "name": "Igor Kroitor",
