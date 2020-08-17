@@ -9,7 +9,35 @@ options to tune the output.
 from __future__ import division
 from math import ceil, floor, isnan
 
-__all__ = ['plot']
+
+black = "\033[30m"
+red = "\033[31m"
+green = "\033[32m"
+yellow = "\033[33m"
+blue = "\033[34m"
+magenta = "\033[35m"
+cyan = "\033[36m"
+lightgray = "\033[37m"
+default = "\033[39m"
+darkgray = "\033[90m"
+lightred = "\033[91m"
+lightgreen = "\033[92m"
+lightyellow = "\033[93m"
+lightblue = "\033[94m"
+lightmagenta = "\033[95m"
+lightcyan = "\033[96m"
+white = "\033[97m"
+reset = "\033[0m"
+
+
+__all__ = [
+    'plot', 'black', 'red',
+    'green', 'yellow', 'blue',
+    'magenta', 'cyan', 'lightgray',
+    'default', 'darkgray', 'lightred',
+    'lightgreen', 'lightyellow', 'lightblue',
+    'lightmagenta', 'lightcyan', 'white', 'reset',
+]
 
 # Python 3.2 has math.isfinite, which could have been used, but to support older
 # versions, this little helper is shorter than having to keep doing not isnan(),
@@ -17,6 +45,12 @@ __all__ = ['plot']
 # help with readability.
 def _isnum(n):
     return not isnan(n)
+
+def colored(char, color):
+    if not color:
+        return char
+    else:
+        return color + char + reset
 
 def plot(series, cfg=None):
     """Generate an ascii chart for a series of numbers.
@@ -96,6 +130,8 @@ def plot(series, cfg=None):
 
     cfg = cfg or {}
 
+    colors = cfg.get('colors', [None])
+
     minimum = cfg.get('min', min(filter(_isnum, [j for i in series for j in i])))
     maximum = cfg.get('max', max(filter(_isnum, [j for i in series for j in i])))
 
@@ -143,6 +179,8 @@ def plot(series, cfg=None):
 
     for i in range(0, len(series)):
 
+        color = colors[i % len(colors)]
+
         # plot the line
         for x in range(0, len(series[i]) - 1):
             d0 = series[i][x + 0]
@@ -152,25 +190,25 @@ def plot(series, cfg=None):
                 continue
 
             if isnan(d0) and _isnum(d1):
-                result[rows - scaled(d1)][x + offset] = symbols[2]
+                result[rows - scaled(d1)][x + offset] = colored(symbols[2], color)
                 continue
 
             if _isnum(d0) and isnan(d1):
-                result[rows - scaled(d0)][x + offset] = symbols[3]
+                result[rows - scaled(d0)][x + offset] = colored(symbols[3], color)
                 continue
 
             y0 = scaled(d0)
             y1 = scaled(d1)
             if y0 == y1:
-                result[rows - y0][x + offset] = symbols[4]
+                result[rows - y0][x + offset] = colored(symbols[4], color)
                 continue
 
-            result[rows - y1][x + offset] = symbols[5] if y0 > y1 else symbols[6]
-            result[rows - y0][x + offset] = symbols[7] if y0 > y1 else symbols[8]
+            result[rows - y1][x + offset] = colored(symbols[5], color) if y0 > y1 else colored(symbols[6], color)
+            result[rows - y0][x + offset] = colored(symbols[7], color) if y0 > y1 else colored(symbols[8], color)
 
             start = min(y0, y1) + 1
             end = max(y0, y1)
             for y in range(start, end):
-                result[rows - y][x + offset] = symbols[9]
+                result[rows - y][x + offset] = colored(symbols[9], color)
 
     return '\n'.join([''.join(row).rstrip() for row in result])
