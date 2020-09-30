@@ -31,8 +31,8 @@
     exports.colored = colored
 
     exports.plot = function (series, cfg = undefined) {
-        // this function takes oth one array and array of arrays
-        // if an array of numbers is passed it is transfored to
+        // this function takes both one array and array of arrays
+        // if an array of numbers is passed it is transformed to
         // an array of exactly one array with numbers
         if (typeof(series[0]) == "number"){
             series = [series]
