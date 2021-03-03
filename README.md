@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/asciichart.svg)](https://npmjs.com/package/asciichart) [![PyPI](https://img.shields.io/pypi/v/asciichartpy.svg)](https://pypi.python.org/pypi/asciichartpy) [![Travis](https://travis-ci.org/kroitor/asciichart.svg?branch=master)](https://travis-ci.org/kroitor/asciichart) [![Coverage Status](https://coveralls.io/repos/github/kroitor/asciichart/badge.svg?branch=master)](https://coveralls.io/github/kroitor/asciichart?branch=master) [![license](https://img.shields.io/github/license/kroitor/asciichart.svg)](https://github.com/kroitor/asciichart/blob/master/LICENSE.txt)
 
-Console ASCII line charts in pure Javascript (for NodeJS and browsers) with no dependencies. This code is absolutely free for any usage, you just do whatever the fuck you want.
+Console ASCII line charts in pure Javascript (for NodeJS and browsers) with no dependencies.
 
 <img width="789" alt="Console ASCII Line charts in pure Javascript (for NodeJS and browsers)" src="https://cloud.githubusercontent.com/assets/1294454/22818709/9f14e1c2-ef7f-11e6-978f-34b5b595fb63.png">
 
