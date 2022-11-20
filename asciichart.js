@@ -1,9 +1,7 @@
 "use strict";
 
 (function (exports) {
-
     // control sequences for coloring
-
     exports.black = "\x1b[30m"
     exports.red = "\x1b[31m"
     exports.green = "\x1b[32m"
@@ -23,6 +21,13 @@
     exports.white = "\x1b[97m"
     exports.reset = "\x1b[0m"
 
+    /**
+     * Wraps a given character in ANSI color escape codes if color is passed in
+     * 
+     * @param {string} char - symbol to color
+     * @param {string} color - ANSI color code
+     * @returns {string}
+     */
     function colored (char, color) {
         // do not color it if color is not specified
         return color ? `${color}${char || ''}${exports.reset}` : char
@@ -30,14 +35,27 @@
 
     exports.colored = colored
 
-    exports.plot = function (series, cfg = undefined) {
-        // this function takes both one array and array of arrays
-        // if an array of numbers is passed it is transformed to
-        // an array of exactly one array with numbers
-        if (typeof(series[0]) == "number"){
-            series = [series]
-        }
+    /**
+     * @typedef {Object} Config
+     * @property {number} [min] - minimum value of any series (default: auto)
+     * @property {number} [max] - maximum value of any series (default: auto)
+     * @property {number} [offset=3] - axis offset from the left
+     * @property {string} [padding='       '] - padding string for label formatting
+     * @property {number} [height] - height of the chart (default: max - min)
+     * @property {string[]} [colors] - array of ANSI color codes to use for each series (default: built-in presets)
+     * @property {string[]} [symbols] - array of symbols to use for each series (defaults: ┼, ┤, ╶, ╴, ─, ╰, ╭, ╮, ╯, and │)
+     * @property {(x: number, i: number) => string} [format] - function to format each label. Optional second parameter is the index
+     */
 
+    /**
+     * Takes in a series of numbers and "plots" them as a line chart 
+     * using ASCII characters. Returned as a string with newlines 
+     * separating each line.
+     * 
+     * @param {number[] | number[][]} series - if an array of numbers is passed in, it will be transformed into an array of a single series
+     * @param {Config} [cfg={}] - configuration object
+     * @returns {string}
+     */
     const plot = function (series, cfg = {}) {
         if (typeof(series[0]) == "number") series = [series]
 
