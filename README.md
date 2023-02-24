@@ -172,7 +172,7 @@ Special thx to all who helped port it to other languages, great stuff!
 - R: [asciichartr](https://github.com/blmayer/asciichartr), ported by [blmayer](https://github.com/blmayer)!
 - Rust: [rasciigraph](https://github.com/orhanbalci/rasciigraph), ported by [orhanbalci](https://github.com/orhanbalci)!
 - PHP: [PHP-colored-ascii-linechart](https://github.com/noximo/PHP-colored-ascii-linechart), ported by [noximo](https://github.com/noximo)!
-- C#: [asciichart-sharp](https://github.com/samcarton/asciichart-sharp), ported by [samcarton](https://github.com/samcarton)!
+- C#: [asciichart-sharp](https://github.com/NathanBaulch/asciichart-sharp), ported by [samcarton](https://github.com/samcarton), maintained by [NathanBaulch](https://github.com/NathanBaulch)!
 - Deno: [chart](https://github.com/maximousblk/chart), ported by [maximousblk](https://github.com/maximousblk)!
 
 ### Future work (coming soon, hopefully)
