@@ -174,6 +174,7 @@ Special thx to all who helped port it to other languages, great stuff!
 - PHP: [PHP-colored-ascii-linechart](https://github.com/noximo/PHP-colored-ascii-linechart), ported by [noximo](https://github.com/noximo)!
 - C#: [asciichart-sharp](https://github.com/NathanBaulch/asciichart-sharp), ported by [samcarton](https://github.com/samcarton), maintained by [NathanBaulch](https://github.com/NathanBaulch)!
 - Deno: [chart](https://github.com/maximousblk/chart), ported by [maximousblk](https://github.com/maximousblk)!
+- Lua: [lua-asciichart](https://github.com/wuyudi/lua-asciichart), ported by [wuyudi](https://github.com/wuyudi)!
 
 ### Future work (coming soon, hopefully)
 
