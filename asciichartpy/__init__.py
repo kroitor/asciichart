@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Module to generate ascii charts.
 
 This module provides a single function `plot` that can be used to generate an
@@ -6,9 +5,10 @@ ascii chart from a series of numbers. The chart can be configured via several
 options to tune the output.
 """
 
-from __future__ import division
-from math import ceil, floor, isnan
+from __future__ import annotations
 
+from math import ceil, floor, isnan
+from typing import Any, Mapping
 
 black = "\033[30m"
 red = "\033[31m"
@@ -31,13 +31,27 @@ reset = "\033[0m"
 
 
 __all__ = [
-    'plot', 'black', 'red',
-    'green', 'yellow', 'blue',
-    'magenta', 'cyan', 'lightgray',
-    'default', 'darkgray', 'lightred',
-    'lightgreen', 'lightyellow', 'lightblue',
-    'lightmagenta', 'lightcyan', 'white', 'reset',
+    "plot",
+    "black",
+    "red",
+    "green",
+    "yellow",
+    "blue",
+    "magenta",
+    "cyan",
+    "lightgray",
+    "default",
+    "darkgray",
+    "lightred",
+    "lightgreen",
+    "lightyellow",
+    "lightblue",
+    "lightmagenta",
+    "lightcyan",
+    "white",
+    "reset",
 ]
+
 
 # Python 3.2 has math.isfinite, which could have been used, but to support older
 # versions, this little helper is shorter than having to keep doing not isnan(),
@@ -46,13 +60,18 @@ __all__ = [
 def _isnum(n):
     return not isnan(n)
 
+
 def colored(char, color):
     if not color:
         return char
     else:
         return color + char + reset
 
-def plot(series, cfg=None):
+
+_DEFAULT_SYMBOLS = ("┼", "┤", "╶", "╴", "─", "╰", "╭", "╮", "╯", "│")
+
+
+def plot(series, cfg: Mapping[str, Any] | None = None):
     """Generate an ascii chart for a series of numbers.
 
     `series` should be a list of ints or floats. Missing data values in the
@@ -71,10 +90,10 @@ def plot(series, cfg=None):
 
         >>> series = [[10,20,30,40,30,20,10], [40,30,20,10,20,30,40]]
         >>> print(plot(series, {'height': 3}))
-           40.00  ┤╮ ╭╮ ╭
-           30.00  ┤╰╮╯╰╭╯
-           20.00  ┤╭╰╮╭╯╮
-           10.00  ┼╯ ╰╯ ╰
+            40.00  ┤╮ ╭╮ ╭
+            30.00  ┤╰╮╯╰╭╯
+            20.00  ┤╭╰╮╭╯╮
+            10.00  ┼╯ ╰╯ ╰
 
     `cfg` is an optional dictionary of various parameters to tune the appearance
     of the chart. `min` and `max` will clamp the y-axis and all values:
@@ -101,11 +120,11 @@ def plot(series, cfg=None):
 
         >>> series = [10,20,30,40,50,40,30,20,10]
         >>> print(plot(series, {'height': 4}))
-           50.00  ┤   ╭╮
-           40.00  ┤  ╭╯╰╮
-           30.00  ┤ ╭╯  ╰╮
-           20.00  ┤╭╯    ╰╮
-           10.00  ┼╯      ╰
+            50.00  ┤   ╭╮
+            40.00  ┤  ╭╯╰╮
+            30.00  ┤ ╭╯  ╰╮
+            20.00  ┤╭╯    ╰╮
+            10.00  ┼╯      ╰
 
     `format` specifies a Python format string used to format the labels on the
     y-axis. The default value is "{:8.2f} ". This can be used to remove the
@@ -113,37 +132,36 @@ def plot(series, cfg=None):
 
         >>> series = [10,20,30,40,50,40,30,20,10]
         >>> print(plot(series, {'height': 4, 'format':'{:8.0f}'}))
-              50 ┤   ╭╮
-              40 ┤  ╭╯╰╮
-              30 ┤ ╭╯  ╰╮
-              20 ┤╭╯    ╰╮
-              10 ┼╯      ╰
+            50 ┤   ╭╮
+            40 ┤  ╭╯╰╮
+            30 ┤ ╭╯  ╰╮
+            20 ┤╭╯    ╰╮
+            10 ┼╯      ╰
     """
     if len(series) == 0:
-        return ''
+        return ""
 
     if not isinstance(series[0], list):
         if all(isnan(n) for n in series):
-            return ''
+            return ""
         else:
             series = [series]
 
     cfg = cfg or {}
 
-    colors = cfg.get('colors', [None])
+    colors = cfg.get("colors", [None])
 
-    minimum = cfg.get('min', min(filter(_isnum, [j for i in series for j in i])))
-    maximum = cfg.get('max', max(filter(_isnum, [j for i in series for j in i])))
+    minimum = cfg.get("min", min(filter(_isnum, [j for i in series for j in i])))
+    maximum = cfg.get("max", max(filter(_isnum, [j for i in series for j in i])))
 
-    default_symbols = ['┼', '┤', '╶', '╴', '─', '╰', '╭', '╮', '╯', '│']
-    symbols = cfg.get('symbols', default_symbols)
+    symbols = cfg.get("symbols", _DEFAULT_SYMBOLS)
 
     if minimum > maximum:
-        raise ValueError('The min value cannot exceed the max value.')
+        raise ValueError("The min value cannot exceed the max value.")
 
     interval = maximum - minimum
-    offset = cfg.get('offset', 3)
-    height = cfg.get('height', interval)
+    offset = cfg.get("offset", 3)
+    height = cfg.get("height", interval)
     ratio = height / interval if interval > 0 else 1
 
     min2 = int(floor(minimum * ratio))
@@ -158,31 +176,34 @@ def plot(series, cfg=None):
     rows = max2 - min2
 
     width = 0
-    for i in range(0, len(series)):
+    for i in range(len(series)):
         width = max(width, len(series[i]))
     width += offset
 
-    placeholder = cfg.get('format', '{:8.2f} ')
+    placeholder = cfg.get("format", "{:8.2f} ")
 
-    result = [[' '] * width for i in range(rows + 1)]
+    result = [[" "] * width for i in range(rows + 1)]
 
     # axis and labels
     for y in range(min2, max2 + 1):
-        label = placeholder.format(maximum - ((y - min2) * interval / (rows if rows else 1)))
+        label = placeholder.format(
+            maximum - ((y - min2) * interval / (rows if rows else 1))
+        )
         result[y - min2][max(offset - len(label), 0)] = label
-        result[y - min2][offset - 1] = symbols[0] if y == 0 else symbols[1]  # zero tick mark
+        result[y - min2][offset - 1] = (
+            symbols[0] if y == 0 else symbols[1]
+        )  # zero tick mark
 
     # first value is a tick mark across the y-axis
     d0 = series[0][0]
     if _isnum(d0):
         result[rows - scaled(d0)][offset - 1] = symbols[0]
 
-    for i in range(0, len(series)):
-
+    for i in range(len(series)):
         color = colors[i % len(colors)]
 
         # plot the line
-        for x in range(0, len(series[i]) - 1):
+        for x in range(len(series[i]) - 1):
             d0 = series[i][x + 0]
             d1 = series[i][x + 1]
 
@@ -203,12 +224,16 @@ def plot(series, cfg=None):
                 result[rows - y0][x + offset] = colored(symbols[4], color)
                 continue
 
-            result[rows - y1][x + offset] = colored(symbols[5], color) if y0 > y1 else colored(symbols[6], color)
-            result[rows - y0][x + offset] = colored(symbols[7], color) if y0 > y1 else colored(symbols[8], color)
+            result[rows - y1][x + offset] = (
+                colored(symbols[5], color) if y0 > y1 else colored(symbols[6], color)
+            )
+            result[rows - y0][x + offset] = (
+                colored(symbols[7], color) if y0 > y1 else colored(symbols[8], color)
+            )
 
             start = min(y0, y1) + 1
             end = max(y0, y1)
             for y in range(start, end):
                 result[rows - y][x + offset] = colored(symbols[9], color)
 
-    return '\n'.join([''.join(row).rstrip() for row in result])
+    return "\n".join(["".join(row).rstrip() for row in result])
