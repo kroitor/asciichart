@@ -1,17 +1,20 @@
-# MIT License
-
+# SPDX-License-Identifier: MIT
+# Modifications Copyright (c) Microsoft.
+#
 # Copyright © 2016 Igor Kroitor
-
+#
+# MIT License
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-
+#
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
-
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -117,6 +120,12 @@ def plot(series, bin_edges=None, cfg=None):
             20.00  ┤╭╰╮╭╯╮
             10.00  ┼╯ ╰╯ ╰
 
+    `bin_edges` is an optional list of bin edges to display on the x-axis. If
+    provided, the x-axis will be labeled with the bin edges. If there are too
+    many bin edges to fit on the x-axis, some labels will be dropped and they
+    will be spaced out evenly to fit the width of the chart.
+    The labels will be formatted using the `x_format` option in `cfg`.
+
     `cfg` is an optional dictionary of various parameters to tune the appearance
     of the chart. `min` and `max` will clamp the y-axis and all values:
 
@@ -206,7 +215,7 @@ def plot(series, bin_edges=None, cfg=None):
     width += offset
 
     placeholder = cfg.get("format", "{:8.2f} ")
-    x_placeholder = cfg.get("x_format", "{:4.4f} ")
+    x_placeholder = cfg.get("x_format", "{:4.4f}")
 
     result = [[" "] * width for i in range(rows + 1)]
 
@@ -276,25 +285,24 @@ def plot(series, bin_edges=None, cfg=None):
     # Initialize the x-label text with the leading space. We allow the first label to
     # recess so that the center of it is aligned with the first tick mark.
     x_label_size = len(x_label)
-    x_leading_space = max(0, leading_space - x_label_size // 2 + 1)
+    x_leading_space = max(0, leading_space - x_label_size)
 
     x_labels = []
-    # This is the amount of space we have to fit the x-labels
-    workable_width = width + x_label_size
+    # This is the amount of space we have to fit the x-labels. It can overflow the width
+    # by half of the x-label size
+    workable_width = width + x_label_size // 2
     # Compute the spacing between x-labels
-    # If we fit labels and space them by 1 character, we can fit this many labels:
-    num_labels_can_fit = workable_width // (x_label_size + 1)
+    # If we fit labels and space them by 2 characters, we can fit this many labels:
+    min_spacing = 2
+    num_labels_can_fit = width // (x_label_size + min_spacing)
     labels_count = len(bin_edges)
     # Find out the actual number of labels we need to display
     num_labels_to_display = min(labels_count, num_labels_can_fit)
-    num_spaces = (num_labels_to_display - 1)
-    spacing = max(1, (workable_width - num_labels_to_display * x_label_size) // num_spaces)
-    print("num_labels_can_fit", num_labels_can_fit)
-    print("num_labels_to_display", num_labels_to_display)
-    print("spacing", spacing)
-    print("num_spaces", num_spaces)
-    print("width", width)
-    print("workable_width", workable_width)
+    num_spaces = num_labels_to_display - 1
+    spacing = max(
+        min_spacing,
+        (workable_width - num_labels_to_display * x_label_size) // num_spaces,
+    )
     # Now start placing labels
     while current_location < workable_width:
         # Find the current label that would be suitable for the current location
@@ -304,6 +312,6 @@ def plot(series, bin_edges=None, cfg=None):
         # Move to the next location
         current_location += len(x_label) + spacing
     # Create the x-label row
-    x_labels = " " * x_leading_space + "".join(x_labels)
+    x_labels_text = " " * x_leading_space + (" " * spacing).join(x_labels)
 
-    return the_plot + "\n" + x_labels
+    return the_plot + "\n" + x_labels_text
