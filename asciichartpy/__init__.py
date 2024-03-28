@@ -1,3 +1,25 @@
+# MIT License
+
+# Copyright © 2016 Igor Kroitor
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 """Module to generate ascii charts.
 
 This module provides a single function `plot` that can be used to generate an
@@ -8,7 +30,7 @@ options to tune the output.
 from __future__ import annotations
 
 from math import ceil, floor, isnan
-from typing import Any, Mapping
+from typing import Mapping
 
 black = "\033[30m"
 red = "\033[31m"
@@ -71,7 +93,7 @@ def colored(char, color):
 _DEFAULT_SYMBOLS = ("┼", "┤", "╶", "╴", "─", "╰", "╭", "╮", "╯", "│")
 
 
-def plot(series, cfg: Mapping[str, Any] | None = None):
+def plot(series, bin_edges=None, cfg=None):
     """Generate an ascii chart for a series of numbers.
 
     `series` should be a list of ints or floats. Missing data values in the
@@ -147,6 +169,9 @@ def plot(series, cfg: Mapping[str, Any] | None = None):
         else:
             series = [series]
 
+    if cfg is not None and not isinstance(cfg, Mapping):
+        raise TypeError("cfg must be a dictionary or None")
+
     cfg = cfg or {}
 
     colors = cfg.get("colors", [None])
@@ -176,11 +201,12 @@ def plot(series, cfg: Mapping[str, Any] | None = None):
     rows = max2 - min2
 
     width = 0
-    for i in range(len(series)):
-        width = max(width, len(series[i]))
+    for series_i in series:
+        width = max(width, len(series_i))
     width += offset
 
     placeholder = cfg.get("format", "{:8.2f} ")
+    x_placeholder = cfg.get("x_format", "{:4.4f} ")
 
     result = [[" "] * width for i in range(rows + 1)]
 
@@ -199,13 +225,13 @@ def plot(series, cfg: Mapping[str, Any] | None = None):
     if _isnum(d0):
         result[rows - scaled(d0)][offset - 1] = symbols[0]
 
-    for i in range(len(series)):
+    for i, series_i in enumerate(series):
         color = colors[i % len(colors)]
 
         # plot the line
-        for x in range(len(series[i]) - 1):
-            d0 = series[i][x + 0]
-            d1 = series[i][x + 1]
+        for x in range(len(series_i) - 1):
+            d0 = series_i[x + 0]
+            d1 = series_i[x + 1]
 
             if isnan(d0) and isnan(d1):
                 continue
@@ -236,4 +262,48 @@ def plot(series, cfg: Mapping[str, Any] | None = None):
             for y in range(start, end):
                 result[rows - y][x + offset] = colored(symbols[9], color)
 
-    return "\n".join(["".join(row).rstrip() for row in result])
+    the_plot = "\n".join(["".join(row).rstrip() for row in result])
+
+    if bin_edges is None or len(bin_edges) == 0:
+        return the_plot
+
+    # Plot x axis labels
+    current_location = 0
+    # Compute the amount of leading space for the first x-label using the old label size
+    leading_space = offset + len(label)
+    # Obtain the first x-label to compute its size
+    x_label = x_placeholder.format(bin_edges[0])
+    # Initialize the x-label text with the leading space. We allow the first label to
+    # recess so that the center of it is aligned with the first tick mark.
+    x_label_size = len(x_label)
+    x_leading_space = max(0, leading_space - x_label_size // 2 + 1)
+
+    x_labels = []
+    # This is the amount of space we have to fit the x-labels
+    workable_width = width + x_label_size
+    # Compute the spacing between x-labels
+    # If we fit labels and space them by 1 character, we can fit this many labels:
+    num_labels_can_fit = workable_width // (x_label_size + 1)
+    labels_count = len(bin_edges)
+    # Find out the actual number of labels we need to display
+    num_labels_to_display = min(labels_count, num_labels_can_fit)
+    num_spaces = (num_labels_to_display - 1)
+    spacing = max(1, (workable_width - num_labels_to_display * x_label_size) // num_spaces)
+    print("num_labels_can_fit", num_labels_can_fit)
+    print("num_labels_to_display", num_labels_to_display)
+    print("spacing", spacing)
+    print("num_spaces", num_spaces)
+    print("width", width)
+    print("workable_width", workable_width)
+    # Now start placing labels
+    while current_location < workable_width:
+        # Find the current label that would be suitable for the current location
+        bin_index = int((current_location / workable_width) * labels_count)
+        x_label = x_placeholder.format(bin_edges[bin_index])
+        x_labels.append(x_label)
+        # Move to the next location
+        current_location += len(x_label) + spacing
+    # Create the x-label row
+    x_labels = " " * x_leading_space + "".join(x_labels)
+
+    return the_plot + "\n" + x_labels
