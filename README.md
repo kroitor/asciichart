@@ -175,6 +175,7 @@ Special thx to all who helped port it to other languages, great stuff!
 - C#: [asciichart-sharp](https://github.com/NathanBaulch/asciichart-sharp), ported by [samcarton](https://github.com/samcarton), maintained by [NathanBaulch](https://github.com/NathanBaulch)!
 - Deno: [chart](https://github.com/maximousblk/chart), ported by [maximousblk](https://github.com/maximousblk)!
 - Lua: [lua-asciichart](https://github.com/wuyudi/lua-asciichart), ported by [wuyudi](https://github.com/wuyudi)!
+- Dart: [ascii_chart](https://github.com/rave98/ascii_chart), ported by [Rave98](https://github.com/rave98)
 
 ### Future work (coming soon, hopefully)
 
