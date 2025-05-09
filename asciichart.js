@@ -80,7 +80,7 @@
         for (let y = min2; y <= max2; ++y) { // axis + labels
             let label = format (rows > 0 ? max - (y - min2) * range / rows : y, y - min2)
             result[y - min2][Math.max (offset - label.length, 0)] = label
-            result[y - min2][offset - 1] = (y == 0) ? symbols[0] : symbols[1]
+            result[y - min2][offset - 1] = ((max2 - (y - min2)) == 0) ? symbols[0] : symbols[1]
         }
 
         for (let j = 0; j < series.length; j++) {

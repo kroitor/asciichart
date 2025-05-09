@@ -170,7 +170,7 @@ def plot(series, cfg=None):
     for y in range(min2, max2 + 1):
         label = placeholder.format(maximum - ((y - min2) * interval / (rows if rows else 1)))
         result[y - min2][max(offset - len(label), 0)] = label
-        result[y - min2][offset - 1] = symbols[0] if y == 0 else symbols[1]  # zero tick mark
+        result[y - min2][offset - 1] = symbols[0] if (max2 - (y - min2)) == 0 else symbols[1]  # zero tick mark
 
     # first value is a tick mark across the y-axis
     d0 = series[0][0]
