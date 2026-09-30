@@ -7,9 +7,7 @@
     "type": "git",
     "url": "https://github.com/kroitor/asciichart.git"
   },
-  "dependencies": {},
   "devDependencies": {
-    "coveralls": "^3.1.0",
     "esdoc-node": "^1.0.5",
     "eslint": "^7.5.0",
     "istanbul": "^0.4.5",
@@ -28,8 +26,7 @@
     "test": "nyc --reporter=html --reporter=text mocha --reporter spec",
     "lint": "eslint asciichart.js",
     "lint-test": "eslint test.js",
-    "autotest": "mocha --reporter spec --watch",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "autotest": "mocha --reporter spec --watch"
   },
   "license": "MIT",
   "bugs": {
