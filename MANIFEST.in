@@ -3,3 +3,6 @@ include LICENSE.txt
 
 # Include the package.json file
 include package.json
+
+# setup.py reads the Markdown README when building metadata.
+include README.md
